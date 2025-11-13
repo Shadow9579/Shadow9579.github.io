@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emma Hunter Art | Home</title>
+    <title>Emma Hunter Art | About/CV</title>
     <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- For social media icons and arrow -->
@@ -24,6 +24,82 @@
 
 body {
     font-family:"Lato", sans-serif;
+    line-height:1.6;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.25rem;
+}
+
+/* About Section */
+.about {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.about img {
+    flex: 1;
+    max-width: 300px;
+    height: auto;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+.about .text {
+    flex: 2;
+    min-width: 300px;
+}
+
+.about h2 {
+    margin-top: 0;
+}
+
+/*CV section */
+.cv {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cv-section {
+    flex: 1;
+    min-width: 250px;
+    padding:20px;
+    background-color:#f9f9f9;
+    border-radius:8px;
+}
+
+.cv-section h3 {
+    margin-top:0;
+    color:#333;
+}
+
+.cv-section ul {
+    list-style:none;
+    padding:0;
+}
+
+.cv-section li {
+    margin-bottom:10px;
+}
+
+/*Responsive design */
+@media (max-width: 768px) {
+    .about {
+        flex-direction: column;
+    }
+    .about img {
+        margin-right:0;
+        margin-bottom:20px;
+        max-width:100%;
+    }
+    .cv {
+        flex-direction: column;
+    }
 }
 
 .navbar {
@@ -155,15 +231,6 @@ body {
     transition: 0.3s;
 }
 
-.landing-image {
-   height:100vh;
-   width:100%;
-   background-image:url('https://static.tumblr.com/95pk0zv/gcvt5blfk/landingimage.jpg');
-   background-size:cover;
-   background-position:center;
-   background-repeat:no-repeat;
-   position:relative;
-}
 
 
 
@@ -242,8 +309,8 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
             
             <!-- Navigation tabs in the center -->
             <ul class="nav-menu">
-                <li><a href="https://ehunterart.com" style="color:#007bff;">HOME</a></li>
-                <li><a href="#about/cv">ABOUT/CV</a></li>
+                <li><a href="https://ehunterart.com">HOME</a></li>
+                <li><a href="#about/cv" style="color:#007bff;">ABOUT/CV</a></li>
                 <li class="dropdown">
                     <a href="#artworks" class="dropbtn">ART <i class="fas fa-chevron-down"></i></a>
                     <ul class="dropdown-content">
@@ -273,7 +340,41 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
             </div>
         </div>
     </nav>
-    <div class="landing-image"></div>
+    <div class="container"> <!-- About section -->
+        <section class="about">
+            <img src="images/about/artistportrait.jpg" alt="Artist Portrait">
+            <div class="text">
+                <h2>About Me</h2>
+                <p>I am a self-taught artist who loves to create art in a variety of mediums. I am a student at the University of California, Santa Barbara, where I am studying Computer Science and Art History. I am also a member of the UCSB Art Department, where I am a student artist.</p>
+            </div>
+        </section>
+        <!--CV section -->
+        <section class="cv">
+            <div class="cv-section">
+                <h3>Education</h3>
+                <ul>
+                    <li><strong>Bachelor of Arts: Art & Technology Emphasis</strong> - Brigham Young University 2026</li>
+                    <li><strong>High School Diploma - Technical Emphasis in Media Arts and Web Design</strong> - Meridian Technical Charter High School 2020</li>
+                </ul>
+            </div>
+            <div class="cv-section">
+                <h3>Experience</h3>
+                <ul>
+                    <li><strong>Graphic Designer</strong> - Dynamic Campus November 2019 - Present</li>
+                    <li><strong>Graphic Design Intern</strong> - Visual String June 2019 - November 2019</li>
+                </ul>
+            </div>
+            <div class="cv-section">
+                <h3>Awards</h3>
+                <ul>
+                    <li><strong>Boise State University High School Entrepreneurial Competition Winner</strong> -2020</li>
+                    <li><strong>SkillsUSA Idaho Local Competition Winner</strong> Advertising Design - 2020</li>
+                    <li><strong>SkillsUSA Idaho State Competition Winner</strong> Promotional Bulletin Board - 2018</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
