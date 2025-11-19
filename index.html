@@ -24,6 +24,14 @@
 
 body {
     font-family:"Lato", sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    width: 100%;
 }
 
 .navbar {
@@ -187,8 +195,8 @@ footer {
     padding: 1rem;
     text-align: center;
     color: #333;
-    bottom: 0;
-    position: sticky;
+    margin-top: auto;
+    width: 100%;
 }
 
 /* Responsive design */
@@ -298,7 +306,9 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
             </div>
         </div>
     </nav>
-    <div class="landing-image"></div>
+    <main class="main-content">
+        <div class="landing-image"></div>
+    </main>
     <footer>
         <p>© 2025 Emma Hunter. All rights reserved.</p>
     </footer>
