@@ -232,6 +232,36 @@ body {
     background-color: #007bff;
 }
 
+/* Category Note */
+.category-note {
+    text-align: center;
+    padding: 1rem 2rem;
+    margin: 1rem auto 2rem;
+    max-width: 800px;
+    background-color: #f8f9fa;
+    border-left: 3px solid #007bff;
+    border-radius: 4px;
+    animation: slideDown 0.3s ease;
+}
+
+.category-note p {
+    margin: 0;
+    color: #666;
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Artwork Grid */
 .art-grid {
     display: grid;
@@ -239,6 +269,40 @@ body {
     gap: 2rem;
     padding: 0 1rem;
     margin-bottom: 3rem;
+}
+
+/* Masonry layout for "All" - varying heights */
+.art-grid.masonry-layout {
+    grid-auto-rows: auto;
+}
+
+.art-grid.masonry-layout .art-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.art-grid.masonry-layout .art-item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Uniform layout for filtered categories - same height */
+.art-grid.uniform-layout {
+    grid-auto-rows: 400px; /* Fixed row height */
+}
+
+.art-grid.uniform-layout .art-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.art-grid.uniform-layout .art-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex: 1;
 }
 
 .art-item {
@@ -263,8 +327,20 @@ body {
     transition: transform 0.3s ease;
 }
 
-.art-item:hover img {
+.art-grid.masonry-layout .art-item:hover img {
     transform: scale(1.02);
+}
+
+.art-grid.uniform-layout .art-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.art-grid.uniform-layout .art-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .art-item-title {
@@ -428,6 +504,10 @@ body {
         padding: 0 0.5rem;
     }
 
+    .art-grid.uniform-layout {
+        grid-auto-rows: 300px; /* Smaller fixed height on mobile */
+    }
+
     .category-filters {
         padding: 1.5rem 0.5rem;
         gap: 0.5rem;
@@ -435,6 +515,15 @@ body {
 
     .filter-btn {
         padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .category-note {
+        padding: 0.75rem 1rem;
+        margin: 1rem 0.5rem 1.5rem;
+    }
+
+    .category-note p {
         font-size: 0.85rem;
     }
 
@@ -799,6 +888,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const lightbox = document.querySelector('.lightbox');
     const lightboxClose = document.querySelector('.lightbox-close');
+    const categoryNote = document.getElementById('categoryNote');
     let currentFilter = 'all';
 
     // Safety check
@@ -811,6 +901,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderArtwork(filter = 'all') {
         if (!artGrid) return;
         artGrid.innerHTML = '';
+        
+        // Toggle layout classes based on filter
+        if (filter === 'all') {
+            artGrid.classList.remove('uniform-layout');
+            artGrid.classList.add('masonry-layout');
+        } else {
+            artGrid.classList.remove('masonry-layout');
+            artGrid.classList.add('uniform-layout');
+        }
+        
         const filteredArt = filter === 'all' 
             ? artworkData 
             : artworkData.filter(art => art.category === filter);
@@ -864,6 +964,15 @@ document.addEventListener('DOMContentLoaded', function() {
             filterBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
+            // Show/hide category note (show for all except "All")
+            if (categoryNote) {
+                if (filter === 'all') {
+                    categoryNote.style.display = 'none';
+                } else {
+                    categoryNote.style.display = 'block';
+                }
+            }
+            
             // Update URL without page reload
             const url = new URL(window.location);
             if (filter === 'all') {
@@ -916,7 +1025,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initial render with category from URL
+    // Show/hide category note based on initial category
+    if (categoryNote) {
+        if (initialCategory === 'all') {
+            categoryNote.style.display = 'none';
+        } else {
+            categoryNote.style.display = 'block';
+        }
+    }
+
+    // Initial render with category from URL (this will also set the layout class)
     renderArtwork(initialCategory);
 
     // Handle browser back/forward buttons
@@ -932,6 +1050,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.classList.add('active');
             }
         });
+        
+        // Show/hide category note based on category
+        if (categoryNote) {
+            if (category === 'all') {
+                categoryNote.style.display = 'none';
+            } else {
+                categoryNote.style.display = 'block';
+            }
+        }
         
         // Render filtered artwork
         renderArtwork(category);
@@ -988,6 +1115,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="filter-btn" data-filter="prints">Prints</button>
                 <button class="filter-btn" data-filter="photography">Photography</button>
                 <button class="filter-btn" data-filter="digital">Digital Art</button>
+                <button class="filter-btn" data-filter="webdesign">Web Design</button>
+            </div>
+
+            <!-- Category Note -->
+            <div class="category-note" id="categoryNote" style="display: none;">
+                <p>Work is still being added to each category, so stay tuned!</p>
             </div>
 
             <!-- Artwork Grid -->
