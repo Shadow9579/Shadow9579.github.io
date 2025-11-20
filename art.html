@@ -271,40 +271,6 @@ body {
     margin-bottom: 3rem;
 }
 
-/* Masonry layout for "All" - varying heights */
-.art-grid.masonry-layout {
-    grid-auto-rows: auto;
-}
-
-.art-grid.masonry-layout .art-item {
-    display: flex;
-    flex-direction: column;
-}
-
-.art-grid.masonry-layout .art-item img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-/* Uniform layout for filtered categories - same height */
-.art-grid.uniform-layout {
-    grid-auto-rows: 400px; /* Fixed row height */
-}
-
-.art-grid.uniform-layout .art-item {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.art-grid.uniform-layout .art-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    flex: 1;
-}
-
 .art-item {
     cursor: pointer;
     opacity: 1;
@@ -327,20 +293,8 @@ body {
     transition: transform 0.3s ease;
 }
 
-.art-grid.masonry-layout .art-item:hover img {
+.art-item:hover img {
     transform: scale(1.02);
-}
-
-.art-grid.uniform-layout .art-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.art-grid.uniform-layout .art-item {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: #f9f9f9;
-    border-radius: 4px;
-    overflow: hidden;
 }
 
 .art-item-title {
@@ -502,10 +456,6 @@ body {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1rem;
         padding: 0 0.5rem;
-    }
-
-    .art-grid.uniform-layout {
-        grid-auto-rows: 300px; /* Smaller fixed height on mobile */
     }
 
     .category-filters {
@@ -901,16 +851,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderArtwork(filter = 'all') {
         if (!artGrid) return;
         artGrid.innerHTML = '';
-        
-        // Toggle layout classes based on filter
-        if (filter === 'all') {
-            artGrid.classList.remove('uniform-layout');
-            artGrid.classList.add('masonry-layout');
-        } else {
-            artGrid.classList.remove('masonry-layout');
-            artGrid.classList.add('uniform-layout');
-        }
-        
         const filteredArt = filter === 'all' 
             ? artworkData 
             : artworkData.filter(art => art.category === filter);
