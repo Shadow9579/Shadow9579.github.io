@@ -352,8 +352,8 @@
         }
 
         .crystal-ball-container.active {
-            opacity: 1;
-            visibility: visible;
+            opacity: 1 !important;
+            visibility: visible !important;
         }
 
         .crystal-ball-container.fullscreen {
@@ -520,17 +520,23 @@
             width: 80%;
             text-align: center;
             color: #fff;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: 600;
             opacity: 0;
             transition: opacity 0.8s ease;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
             line-height: 1.4;
             z-index: 10;
+            pointer-events: none;
+        }
+
+        .crystal-ball-container.fullscreen .thought-text {
+            font-size: 1.5rem;
+            width: 70%;
         }
 
         .thought-text.visible {
-            opacity: 1;
+            opacity: 1 !important;
             animation: fadeInText 1s ease;
         }
 
@@ -569,10 +575,7 @@
 
         .new-fortune-btn.visible {
             pointer-events: auto;
-        }
-
-        .new-fortune-btn.visible {
-            opacity: 1;
+            opacity: 1 !important;
             animation: slideUp 0.5s ease;
         }
 
@@ -800,10 +803,13 @@
             setTimeout(() => {
                 // Add fullscreen class first to position it
                 crystalBallContainer.classList.add('fullscreen');
-                // Force a reflow
+                // Force a reflow to ensure styles are applied
                 void crystalBallContainer.offsetHeight;
                 // Add active class to make it visible
                 crystalBallContainer.classList.add('active');
+                // Ensure it stays visible
+                crystalBallContainer.style.opacity = '1';
+                crystalBallContainer.style.visibility = 'visible';
             }, 1500);
 
             // Hide main container after crystal ball is visible
@@ -816,10 +822,13 @@
                 const thought = showerThoughts[day - 1];
                 thoughtText.textContent = thought;
                 thoughtText.classList.add('visible');
+                // Force visibility
+                thoughtText.style.opacity = '1';
                 
                 // Show new fortune button after thought appears
                 setTimeout(() => {
                     newFortuneBtn.classList.add('visible');
+                    newFortuneBtn.style.opacity = '1';
                 }, 500);
             }, 2500);
         }
@@ -828,16 +837,20 @@
         function resetFortune() {
             // Hide new fortune button
             newFortuneBtn.classList.remove('visible');
+            newFortuneBtn.style.opacity = '0';
             
             // Hide thought text
             thoughtText.classList.remove('visible');
+            thoughtText.style.opacity = '0';
             thoughtText.textContent = '';
             
-            // Show main container first
-            mainContainer.classList.remove('hidden');
-            
-            // Reset crystal ball - remove classes
+            // Reset crystal ball - remove classes and inline styles
             crystalBallContainer.classList.remove('active', 'fullscreen');
+            crystalBallContainer.style.opacity = '';
+            crystalBallContainer.style.visibility = '';
+            
+            // Show main container
+            mainContainer.classList.remove('hidden');
             
             // Reset fortune teller position
             fortuneTeller.classList.remove('looking-at-ball');
