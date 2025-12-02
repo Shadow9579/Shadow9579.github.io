@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Project - Fortune Teller</title>
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W630DJTY55"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-W630DJTY55');
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Stars background */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            height: 100vh;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        /* Fortune Teller */
+        .fortune-teller {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.8s ease;
+        }
+
+        .fortune-teller.looking-at-ball {
+            transform: translateX(150px) rotateY(-15deg);
+        }
+
+        .head {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #8b7355 0%, #6b5d4f 100%);
+            border-radius: 50%;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: headBob 3s ease-in-out infinite;
+        }
+
+        @keyframes headBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.6s ease;
+        }
+
+        .fortune-teller.looking-at-ball .face {
+            transform: translateX(20px);
+        }
+
+        .eyes {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .eye {
+            width: 15px;
+            height: 15px;
+            background: #000;
+            border-radius: 50%;
+            animation: blink 4s infinite;
+        }
+
+        @keyframes blink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+        }
+
+        .mouth {
+            width: 30px;
+            height: 15px;
+            border: 3px solid #000;
+            border-top: none;
+            border-radius: 0 0 30px 30px;
+            animation: talk 2s ease-in-out infinite;
+        }
+
+        @keyframes talk {
+            0%, 100% { width: 30px; }
+            50% { width: 35px; }
+        }
+
+        .body {
+            width: 200px;
+            height: 250px;
+            background: linear-gradient(135deg, #4a3c2a 0%, #2d2418 100%);
+            border-radius: 100px 100px 20px 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .body::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #6b5d4f 0%, #4a3c2a 100%);
+            border-radius: 50%;
+        }
+
+        .arms {
+            position: absolute;
+            top: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .arm {
+            width: 40px;
+            height: 120px;
+            background: linear-gradient(135deg, #8b7355 0%, #6b5d4f 100%);
+            border-radius: 20px;
+            position: relative;
+            transition: transform 0.8s ease;
+        }
+
+        .arm.left {
+            left: -20px;
+            transform-origin: top center;
+        }
+
+        .arm.right {
+            right: -20px;
+            transform-origin: top center;
+        }
+
+        .fortune-teller.looking-at-ball .arm.left {
+            transform: rotate(-30deg);
+        }
+
+        .fortune-teller.looking-at-ball .arm.right {
+            transform: rotate(30deg);
+        }
+
+        /* Dialogue Box */
+        .dialogue-box {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            min-width: 300px;
+            text-align: center;
+            z-index: 100;
+            opacity: 1;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .dialogue-box.hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+            pointer-events: none;
+        }
+
+        .dialogue-box p {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .dialogue-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dialogue-input input {
+            width: 80px;
+            padding: 0.75rem;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            font-family: "Lato", sans-serif;
+            font-weight: 700;
+        }
+
+        .dialogue-input input:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .dialogue-input button {
+            padding: 0.75rem 1.5rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-family: "Lato", sans-serif;
+        }
+
+        .dialogue-input button:hover {
+            background: #0056b3;
+        }
+
+        /* Crystal Ball */
+        .crystal-ball-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.3;
+            transition: opacity 0.8s ease;
+        }
+
+        .crystal-ball-container.active {
+            opacity: 1;
+        }
+
+        .crystal-ball {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), rgba(0, 150, 255, 0.2), rgba(0, 0, 150, 0.4));
+            box-shadow: 
+                0 0 50px rgba(0, 150, 255, 0.5),
+                inset -30px -30px 50px rgba(0, 0, 0, 0.3),
+                inset 30px 30px 50px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 50px rgba(0, 150, 255, 0.5),
+                    inset -30px -30px 50px rgba(0, 0, 0, 0.3),
+                    inset 30px 30px 50px rgba(255, 255, 255, 0.2);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 80px rgba(0, 150, 255, 0.8),
+                    inset -30px -30px 50px rgba(0, 0, 0, 0.3),
+                    inset 30px 30px 50px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .crystal-ball::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+            50% { transform: translate(10px, 10px) scale(1.1); opacity: 0.6; }
+        }
+
+        .crystal-ball-stand {
+            width: 200px;
+            height: 30px;
+            background: linear-gradient(135deg, #8b7355 0%, #6b5d4f 100%);
+            border-radius: 10px;
+            margin-top: -10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .thought-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            text-align: center;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            line-height: 1.4;
+            z-index: 10;
+        }
+
+        .thought-text.visible {
+            opacity: 1;
+            animation: fadeInText 1s ease;
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .fortune-teller {
+                width: 200px;
+                height: 300px;
+            }
+
+            .fortune-teller.looking-at-ball {
+                transform: translateY(-100px) translateX(0) rotateY(0);
+            }
+
+            .crystal-ball-container {
+                width: 300px;
+                height: 300px;
+            }
+
+            .crystal-ball {
+                width: 200px;
+                height: 200px;
+            }
+
+            .dialogue-box {
+                bottom: 20px;
+                min-width: 250px;
+                padding: 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="fortune-teller" id="fortuneTeller">
+            <div class="head">
+                <div class="face">
+                    <div class="eyes">
+                        <div class="eye"></div>
+                        <div class="eye"></div>
+                    </div>
+                    <div class="mouth"></div>
+                </div>
+            </div>
+            <div class="body">
+                <div class="arms">
+                    <div class="arm left"></div>
+                    <div class="arm right"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="crystal-ball-container" id="crystalBallContainer">
+            <div class="crystal-ball" id="crystalBall">
+                <div class="thought-text" id="thoughtText"></div>
+            </div>
+            <div class="crystal-ball-stand"></div>
+        </div>
+    </div>
+
+    <div class="dialogue-box" id="dialogueBox">
+        <p>What day of the month is it?</p>
+        <div class="dialogue-input">
+            <input type="number" id="dayInput" min="1" max="31" placeholder="1-31">
+            <button id="submitBtn">Tell Me</button>
+        </div>
+    </div>
+
+    <script>
+        // Shower thoughts for each day of the month
+        const showerThoughts = [
+            "If you're waiting for the waiter, aren't you the waiter?",
+            "A book is just a tree's autobiography.",
+            "If you're not supposed to eat at night, why is there a light in the fridge?",
+            "The word 'bed' looks like a bed.",
+            "Humans are the only animals that blush. Or need to.",
+            "Why do we say 'heads up' when we mean 'duck'?",
+            "If you're reading this, you're not reading something else.",
+            "The word 'lisp' is hard to say if you have a lisp.",
+            "Why do we call it 'fast food' when it takes so long to get?",
+            "You know what's odd? Every other number.",
+            "Why do we park in driveways and drive on parkways?",
+            "If vegetables are so good for you, why do they taste so bad?",
+            "A book is just a tree's autobiography.",
+            "If you're waiting for the waiter, aren't you the waiter?",
+            "The word 'bed' looks like a bed.",
+            "Why do we park in driveways and drive on parkways?",
+            "If you're reading this, you're not reading something else.",
+            "The word 'lisp' is hard to say if you have a lisp.",
+            "Why do we call it 'fast food' when it takes so long to get?",
+            "You know what's odd? Every other number.",
+            "If you're not supposed to eat at night, why is there a light in the fridge?",
+            "A book is just a tree's autobiography.",
+            "If you're waiting for the waiter, aren't you the waiter?",
+            "The word 'bed' looks like a bed.",
+            "Why do we park in driveways and drive on parkways?",
+            "If you're reading this, you're not reading something else.",
+            "The word 'lisp' is hard to say if you have a lisp.",
+            "Why do we call it 'fast food' when it takes so long to get?",
+            "You know what's odd? Every other number.",
+            "If you're not supposed to eat at night, why is there a light in the fridge?",
+            "A book is just a tree's autobiography."
+        ];
+
+        // Create stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Initialize
+        createStars();
+
+        const dayInput = document.getElementById('dayInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const dialogueBox = document.getElementById('dialogueBox');
+        const fortuneTeller = document.getElementById('fortuneTeller');
+        const crystalBallContainer = document.getElementById('crystalBallContainer');
+        const thoughtText = document.getElementById('thoughtText');
+
+        // Handle form submission
+        function handleSubmit() {
+            const day = parseInt(dayInput.value);
+            
+            if (day < 1 || day > 31 || isNaN(day)) {
+                alert('Please enter a valid day (1-31)');
+                return;
+            }
+
+            // Hide dialogue box
+            dialogueBox.classList.add('hidden');
+
+            // Wait a moment, then animate fortune teller looking at ball
+            setTimeout(() => {
+                fortuneTeller.classList.add('looking-at-ball');
+            }, 500);
+
+            // Activate crystal ball
+            setTimeout(() => {
+                crystalBallContainer.classList.add('active');
+            }, 1000);
+
+            // Display thought after animation
+            setTimeout(() => {
+                const thought = showerThoughts[day - 1];
+                thoughtText.textContent = thought;
+                thoughtText.classList.add('visible');
+            }, 2000);
+        }
+
+        submitBtn.addEventListener('click', handleSubmit);
+
+        dayInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSubmit();
+            }
+        });
+
+        // Focus input on load
+        dayInput.focus();
+    </script>
+</body>
+</html>
+
