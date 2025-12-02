@@ -131,6 +131,13 @@
             z-index: 1;
         }
 
+        /* Ensure crystal ball is always visible when fullscreen, even if parent is hidden */
+        .crystal-ball-container.fullscreen {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: flex !important;
+        }
+
         /* Fortune Teller */
         .fortune-teller {
             position: relative;
@@ -679,30 +686,32 @@
             </div>
         </div>
 
-        <div class="crystal-ball-container" id="crystalBallContainer">
-            <div class="crystal-hands">
-                <div class="hand left">
-                    <div class="fingers">
-                        <div class="finger"></div>
-                        <div class="finger"></div>
-                        <div class="finger"></div>
-                        <div class="finger"></div>
-                    </div>
-                </div>
-                <div class="hand right">
-                    <div class="fingers">
-                        <div class="finger"></div>
-                        <div class="finger"></div>
-                        <div class="finger"></div>
-                        <div class="finger"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="crystal-ball" id="crystalBall">
-                <div class="thought-text" id="thoughtText"></div>
-            </div>
-            <div class="crystal-ball-stand"></div>
         </div>
+    </div>
+
+    <div class="crystal-ball-container" id="crystalBallContainer">
+        <div class="crystal-hands">
+            <div class="hand left">
+                <div class="fingers">
+                    <div class="finger"></div>
+                    <div class="finger"></div>
+                    <div class="finger"></div>
+                    <div class="finger"></div>
+                </div>
+            </div>
+            <div class="hand right">
+                <div class="fingers">
+                    <div class="finger"></div>
+                    <div class="finger"></div>
+                    <div class="finger"></div>
+                    <div class="finger"></div>
+                </div>
+            </div>
+        </div>
+        <div class="crystal-ball" id="crystalBall">
+            <div class="thought-text" id="thoughtText"></div>
+        </div>
+        <div class="crystal-ball-stand"></div>
     </div>
 
     <div class="dialogue-box" id="dialogueBox">
@@ -799,23 +808,48 @@
                 fortuneTeller.classList.add('looking-at-ball');
             }, 500);
 
-            // Show fullscreen crystal ball
+            // Show fullscreen crystal ball - do this first
             setTimeout(() => {
-                // Add fullscreen class first to position it
+                // Add fullscreen class first to position it outside the container
                 crystalBallContainer.classList.add('fullscreen');
                 // Force a reflow to ensure styles are applied
                 void crystalBallContainer.offsetHeight;
                 // Add active class to make it visible
                 crystalBallContainer.classList.add('active');
-                // Ensure it stays visible
+                // Ensure it stays visible with inline styles
                 crystalBallContainer.style.opacity = '1';
                 crystalBallContainer.style.visibility = 'visible';
+                crystalBallContainer.style.display = 'flex';
+                crystalBallContainer.style.position = 'fixed';
+                crystalBallContainer.style.zIndex = '500';
             }, 1500);
 
-            // Hide main container after crystal ball is visible
+            // Hide main container after crystal ball is fully visible and positioned
             setTimeout(() => {
+                // Force crystal ball to stay visible with all necessary inline styles
+                crystalBallContainer.style.opacity = '1';
+                crystalBallContainer.style.visibility = 'visible';
+                crystalBallContainer.style.display = 'flex';
+                crystalBallContainer.style.position = 'fixed';
+                crystalBallContainer.style.zIndex = '500';
+                crystalBallContainer.style.top = '0';
+                crystalBallContainer.style.left = '0';
+                crystalBallContainer.style.width = '100vw';
+                crystalBallContainer.style.height = '100vh';
+                crystalBallContainer.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
+                
+                // Now hide the main container
                 mainContainer.classList.add('hidden');
-            }, 2000);
+                
+                // Final verification after a brief delay to ensure it stays
+                setTimeout(() => {
+                    if (crystalBallContainer) {
+                        crystalBallContainer.style.opacity = '1';
+                        crystalBallContainer.style.visibility = 'visible';
+                        crystalBallContainer.style.display = 'flex';
+                    }
+                }, 200);
+            }, 2200);
 
             // Display thought after animation
             setTimeout(() => {
