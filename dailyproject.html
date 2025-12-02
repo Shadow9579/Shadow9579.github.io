@@ -378,6 +378,52 @@
             }
         }
 
+        /* New Fortune Button */
+        .new-fortune-btn {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: "Lato", sans-serif;
+            box-shadow: 0 5px 20px rgba(0, 123, 255, 0.4);
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.3s ease;
+            z-index: 200;
+        }
+
+        .new-fortune-btn.visible {
+            opacity: 1;
+            animation: slideUp 0.5s ease;
+        }
+
+        .new-fortune-btn:hover {
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.6);
+        }
+
+        .new-fortune-btn:active {
+            transform: translateX(-50%) translateY(-1px);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -408,6 +454,12 @@
                 bottom: 20px;
                 min-width: 250px;
                 padding: 1rem 1.5rem;
+            }
+
+            .new-fortune-btn {
+                bottom: 20px;
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
             }
         }
     </style>
@@ -449,6 +501,8 @@
             <button id="submitBtn">Tell Me</button>
         </div>
     </div>
+
+    <button class="new-fortune-btn" id="newFortuneBtn">New Fortune</button>
 
     <script>
         // Shower thoughts for each day of the month
@@ -508,6 +562,7 @@
         const fortuneTeller = document.getElementById('fortuneTeller');
         const crystalBallContainer = document.getElementById('crystalBallContainer');
         const thoughtText = document.getElementById('thoughtText');
+        const newFortuneBtn = document.getElementById('newFortuneBtn');
 
         // Handle form submission
         function handleSubmit() {
@@ -536,9 +591,40 @@
                 const thought = showerThoughts[day - 1];
                 thoughtText.textContent = thought;
                 thoughtText.classList.add('visible');
+                
+                // Show new fortune button after thought appears
+                setTimeout(() => {
+                    newFortuneBtn.classList.add('visible');
+                }, 500);
             }, 2000);
         }
 
+        // Reset everything for a new fortune
+        function resetFortune() {
+            // Hide new fortune button
+            newFortuneBtn.classList.remove('visible');
+            
+            // Hide thought text
+            thoughtText.classList.remove('visible');
+            thoughtText.textContent = '';
+            
+            // Reset crystal ball
+            crystalBallContainer.classList.remove('active');
+            
+            // Reset fortune teller position
+            fortuneTeller.classList.remove('looking-at-ball');
+            
+            // Show dialogue box
+            dialogueBox.classList.remove('hidden');
+            
+            // Clear and focus input
+            dayInput.value = '';
+            setTimeout(() => {
+                dayInput.focus();
+            }, 300);
+        }
+
+        newFortuneBtn.addEventListener('click', resetFortune);
         submitBtn.addEventListener('click', handleSubmit);
 
         dayInput.addEventListener('keypress', (e) => {
