@@ -30,11 +30,9 @@
         }
         .book {
             position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 70vw; /* 70% of the page */
             height: calc(70vw * 0.675); /* Maintain aspect ratio */
             max-width: 55rem;
@@ -75,10 +73,10 @@
             box-sizing: border-box;
         }
         .cover.turn {
-            animation: bookCover 3.5s ease forwards; /* Slowed and eased */
+            animation: bookCover 3.5s ease forwards;
         }
         .page.turn {
-            animation: bookOpen 3.5s ease forwards; /* Slowed and eased */
+            animation: bookOpen 3.5s ease forwards;
         }
         .page:nth-of-type(1) {
             animation-delay: 0.05s;
@@ -90,15 +88,15 @@
             animation-delay: 0.66s;
         }
         .page:nth-of-type(4) {
-            animation: bookOpenFlat 3.5s ease forwards; /* Slowed and eased */
+            animation: bookOpenFlat 3.5s ease forwards;
             animation-delay: 0.99s;
         }
         .page:nth-of-type(5) {
-            animation: bookOpenFlat 3.5s ease forwards; /* Slowed and eased */
+            animation: bookOpenFlat 3.5s ease forwards;
             animation-delay: 1.2s;
         }
         .page:nth-of-type(6) {
-            animation: bookOpenFlat 3.5s ease forwards; /* Slowed and eased */
+            animation: bookOpenFlat 3.5s ease forwards;
             animation-delay: 1.25s;
         }
         @keyframes bookOpen {
