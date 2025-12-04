@@ -22,17 +22,16 @@
             font-family: "Lato", sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow: hidden;
             position: relative;
         }
         .book {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
             width: 70vw; /* 70% of the page */
             height: calc(70vw * 0.675); /* Maintain aspect ratio */
             max-width: 55rem;
