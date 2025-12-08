@@ -149,18 +149,19 @@
         /* Fortune Teller */
         .fortune-teller {
             position: relative;
-            width: 45vw;
-            max-width: 600px;
-            min-width: 280px;
+            /* Increase width to take up majority of space */
+            width: 55vw;
+            max-width: 1200px;
+            min-width: 300px;
             height: auto;
             display: block;
-            /* Center the container itself using margin since it is no longer flex-centered internally */
             margin: 0 auto;
             transition: transform 0.8s ease;
+            flex-shrink: 1;
         }
 
         .fortune-teller.looking-at-ball {
-            transform: translateX(50%) rotateY(-15deg);
+            transform: translateX(20%) rotateY(-15deg);
         }
 
         /* Base image (body/head) */
@@ -609,9 +610,10 @@
             }
 
             .fortune-teller {
-                /* Let the main responsive styles handle this, just ensure it fits */
-                width: 60vw;
+                /* MAJORITY on mobile = almost full width */
+                width: 90vw;
                 height: auto;
+                margin-bottom: 2rem;
             }
 
             .fortune-teller.looking-at-ball {
@@ -864,21 +866,21 @@
             thoughtText.style.opacity = '0';
             thoughtText.textContent = '';
 
-            
+
             crystalBallContainer.classList.remove('active', 'fullscreen');
             crystalBallContainer.style.opacity = '';
             crystalBallContainer.style.visibility = '';
 
-            
+
             mainContainer.classList.remove('hidden');
 
-            
+
             fortuneTeller.classList.remove('looking-at-ball');
 
-            
+
             dialogueBox.classList.remove('hidden');
 
-            
+
             dayInput.value = '';
             setTimeout(() => {
                 dayInput.focus();
