@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!--This is a daily shower thought fortune made by yours truly, Emma Hunter :) -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +37,7 @@
             position: relative;
         }
 
-        /* Curtains */
+        /* Curtains for opening curtain on load css animation */
         .curtains {
             position: fixed;
             top: 0;
@@ -92,7 +92,7 @@
                     rgba(0, 0, 0, 0.1) 40px);
         }
 
-        /* Stars background */
+        /* Twinklining stars background */
         .stars {
             position: absolute;
             width: 100%;
@@ -138,8 +138,6 @@
             pointer-events: none;
             z-index: 1;
         }
-
-        /* Ensure crystal ball is always visible when fullscreen, even if parent is hidden */
         .crystal-ball-container.fullscreen {
             opacity: 1 !important;
             visibility: visible !important;
@@ -149,7 +147,6 @@
         /* Fortune Teller */
         .fortune-teller {
             position: relative;
-            /* Increase width to take up majority of space */
             width: 55vw;
             max-width: 1200px;
             min-width: 300px;
@@ -164,18 +161,15 @@
             transform: translateX(20%) rotateY(-15deg);
         }
 
-        /* Base image (body/head) */
-        /* Base image (body/head) */
+        /* Base fortune teller image (body minus the arms but with a head) */
         .base {
             position: relative;
             width: 100%;
             height: auto;
             display: block;
             z-index: 1;
-            /* Behind arms */
+            /* Put the image behind the arm images */
         }
-
-        /* Arm images */
         /* Arm images */
         .arm {
             position: absolute;
@@ -184,48 +178,43 @@
             height: auto;
             object-fit: contain;
             transform-origin: bottom center;
-            /* Rotate from the top */
             z-index: 2;
-            /* In front of base */
+            /* In front of base fortune teller image*/
             top: 50%;
             animation: armWave 4s ease-in-out infinite;
-            /* Slow rotate in/out to frame dialogue */
+            /* Slow rotate in/out to frame the dialogue box */
         }
 
         .arm.left {
             left: 7.9%;
-            /* Calculated relative to base width */
             margin-top: -18.5%;
-            /* Calculated vert offset relative to width */
         }
 
         .arm.right {
             left: 65.6%;
-            /* Calculated relative to base width */
             margin-top: -21.7%;
-            /* Calculated vert offset relative to width */
         }
 
-        /* Keyframe for arm waving animation (slow rotate in and out) */
+        /* Mystical arm waving animation (please be slow and rotate in and out) */
         @keyframes armWave {
             0% {
                 transform: rotate(-5deg);
             }
 
-            /* Slight inward rotation */
+            /* inward rotation */
             50% {
                 transform: rotate(5deg);
             }
 
-            /* Slight outward rotation */
+            /* outward rotation */
             100% {
                 transform: rotate(-5deg);
             }
 
-            /* Back to start */
+           
         }
 
-        /* When looking at the ball, apply additional rotation (like original) */
+        /* extra rotation */
         .fortune-teller.looking-at-ball .arm.left {
             transform: rotate(-30deg);
         }
@@ -255,7 +244,7 @@
             border-radius: 50%;
         }
 
-        /* Dialogue Box */
+        /* Day of the month input Dialogue Box */
         .dialogue-box {
             position: absolute;
             bottom: 10%;
@@ -326,7 +315,7 @@
             background: #382949;
         }
 
-        /* Crystal Ball */
+        /* The mystical magical thought Crystal Ball */
         .crystal-ball-container {
             position: relative;
             width: 400px;
@@ -439,7 +428,7 @@
             width: min(50vh, 50vw);
         }
 
-        /* Hands for crystal ball */
+        /* Most terrible looking hands for the crystal ball */
         .crystal-hands {
             position: absolute;
             top: 50%;
@@ -553,7 +542,7 @@
             }
         }
 
-        /* New Fortune Button */
+        /* New Thought or interesting fortune Button */
         .new-fortune-btn {
             position: fixed;
             bottom: 50px;
@@ -610,7 +599,6 @@
             }
 
             .fortune-teller {
-                /* MAJORITY on mobile = almost full width */
                 width: 90vw;
                 height: auto;
                 margin-bottom: 2rem;
@@ -710,10 +698,10 @@
         </div>
     </div>
 
-    <button class="new-fortune-btn" id="newFortuneBtn">New Fortune</button>
+    <button class="new-fortune-btn" id="newFortuneBtn">New Shower Thought</button>
 
     <script>
-        // Shower thoughts for each day of the month
+        // The Shower thoughts for each day of the month
         const showerThoughts = [
             "You've never actually seen your own face, you've only seen reflections and pictures.",
             "Every 'first time' you experience something is also the last time you'll ever be that unprepared.",
@@ -748,7 +736,7 @@
             "The number of possible positions your body can be in is not infinite. There is a limit."
         ];
 
-        // Create stars
+        // Stars hooray
         function createStars() {
             const starsContainer = document.getElementById('stars');
             for (let i = 0; i < 100; i++) {
@@ -761,10 +749,9 @@
             }
         }
 
-        // Initialize
         createStars();
 
-        // Open curtains on page load
+        // Curtain open on load
         setTimeout(() => {
             curtains.classList.add('open');
         }, 500);
@@ -788,23 +775,22 @@
                 return;
             }
 
-            // Hide dialogue box
+            // Hide the dialogue box
             dialogueBox.classList.add('hidden');
 
-            // Wait a moment, then animate fortune teller looking at ball
             setTimeout(() => {
                 fortuneTeller.classList.add('looking-at-ball');
             }, 500);
 
-            // Show fullscreen crystal ball - do this first
+            
             setTimeout(() => {
-                // Add fullscreen class first to position it outside the container
+                
                 crystalBallContainer.classList.add('fullscreen');
-                // Force a reflow to ensure styles are applied
+                
                 void crystalBallContainer.offsetHeight;
-                // Add active class to make it visible
+                
                 crystalBallContainer.classList.add('active');
-                // Ensure it stays visible with inline styles
+                
                 crystalBallContainer.style.opacity = '1';
                 crystalBallContainer.style.visibility = 'visible';
                 crystalBallContainer.style.display = 'flex';
@@ -812,9 +798,9 @@
                 crystalBallContainer.style.zIndex = '500';
             }, 1500);
 
-            // Hide main container after crystal ball is fully visible and positioned
+            
             setTimeout(() => {
-                // Force crystal ball to stay visible with all necessary inline styles
+                
                 crystalBallContainer.style.opacity = '1';
                 crystalBallContainer.style.visibility = 'visible';
                 crystalBallContainer.style.display = 'flex';
@@ -826,10 +812,10 @@
                 crystalBallContainer.style.height = '100vh';
                 crystalBallContainer.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
 
-                // Now hide the main container
+                // To hide the main container
                 mainContainer.classList.add('hidden');
 
-                // Final verification after a brief delay to ensure it stays
+                // Delay to ensure
                 setTimeout(() => {
                     if (crystalBallContainer) {
                         crystalBallContainer.style.opacity = '1';
@@ -839,15 +825,15 @@
                 }, 200);
             }, 2200);
 
-            // Display thought after animation
+            // Display thought
             setTimeout(() => {
                 const thought = showerThoughts[day - 1];
                 thoughtText.textContent = thought;
                 thoughtText.classList.add('visible');
-                // Force visibility
+                // Force it to be visible
                 thoughtText.style.opacity = '1';
 
-                // Show new fortune button after thought appears
+                // Show new fortune button after the thought appears
                 setTimeout(() => {
                     newFortuneBtn.classList.add('visible');
                     newFortuneBtn.style.opacity = '1';
@@ -855,13 +841,13 @@
             }, 2500);
         }
 
-        // Reset everything for a new fortune
+        // Reset everything to get new thought 
         function resetFortune() {
-            // Hide new fortune button
+            // Hide button
             newFortuneBtn.classList.remove('visible');
             newFortuneBtn.style.opacity = '0';
 
-            // Hide thought text
+            // Hide the thought text
             thoughtText.classList.remove('visible');
             thoughtText.style.opacity = '0';
             thoughtText.textContent = '';
