@@ -511,13 +511,83 @@
         transform: translateY(0);
       }
     }
+
+    /* Open State for Journal (controlled by JS) */
+    .journal.is-open {
+      transform: rotateZ(-4deg) rotateX(13deg) rotateY(0deg);
+    }
+
+    .journal.is-open .cover {
+      transform: rotateY(-180deg);
+      box-shadow: 0px 9px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Close Button (X) */
+    .close-book-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: #765555;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 20;
+    }
+
+    .journal.is-open .close-book-btn {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 800px) {
+      .journal {
+        transform: scale(0.8) rotateX(45deg) rotateY(0deg) rotateZ(-45deg);
+      }
+
+      .journal.is-open {
+        transform: scale(0.8) rotateZ(-4deg) rotateX(13deg) rotateY(0deg);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .journal {
+        transform: scale(0.6) rotateX(45deg) rotateY(0deg) rotateZ(-45deg);
+      }
+
+      .journal.is-open {
+        transform: scale(0.6) rotateZ(-4deg) rotateX(13deg) rotateY(0deg);
+      }
+
+      .modal-content {
+        padding: 20px;
+        width: 85%;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .journal {
+        transform: scale(0.45) rotateX(45deg) rotateY(0deg) rotateZ(-45deg);
+      }
+
+      .journal.is-open {
+        transform: scale(0.45) rotateZ(-4deg) rotateX(13deg) rotateY(0deg);
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <input type="checkbox" class="toggle">
-  <div class="journal">
+  <!-- Removed the checkbox toggle -->
+  <div class="journal" id="my-journal">
+    <!-- Close Button inside the book view (visible when open) -->
+    <button class="close-book-btn" id="close-book-x" title="Close Book">&times;</button>
+
     <div class="back-cover"></div>
     <div class="bottom"></div>
     <div class="spine"></div>
@@ -556,8 +626,9 @@
 
       <div class="nav-arrow" id="next-page-btn">&#10140;</div>
     </div>
-    <div class="cover">
-      <div class="front">The Ancestors</div>
+    <div class="cover" id="book-cover">
+      <div class="front">The Ancestors <br><span
+          style="font-size: 1rem; opacity: 0.8; display: block; margin-top: 20px;">(Click to Open)</span></div>
       <div class="back">
         This diary belongs to: Emma Hunter<br>
         <div style="font-size: 1.15rem;">
@@ -567,7 +638,7 @@
       </div>
     </div>
   </div>
-  </input>
+
   </div>
 
   <!-- Modal -->
@@ -594,6 +665,26 @@
         });
       }
 
+      // Book Open/Close Logic
+      const journal = document.getElementById('my-journal');
+      const cover = document.getElementById('book-cover');
+      const closeX = document.getElementById('close-book-x');
+
+      // Open book when clicking cover
+      if (cover) {
+        cover.addEventListener('click', () => {
+          journal.classList.add('is-open');
+        });
+      }
+
+      // Close book when clicking the X
+      if (closeX) {
+        closeX.addEventListener('click', (e) => {
+          e.stopPropagation();
+          journal.classList.remove('is-open');
+        });
+      }
+
       // Pagination Logic
       const pages = document.querySelectorAll('.page-content');
       const nextBtn = document.getElementById('next-page-btn');
@@ -601,7 +692,7 @@
 
       if (nextBtn) {
         nextBtn.addEventListener('click', (e) => {
-          e.stopPropagation(); // Prevent closing book if toggle is clicked
+          e.stopPropagation(); // Crucial: prevent click from bubbling up to document
 
           // Hide current page
           if (pages[currentPageIndex]) pages[currentPageIndex].classList.remove('active');
