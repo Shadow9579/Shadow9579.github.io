@@ -853,14 +853,202 @@
       background: #e0d8c3;
     }
   </style>
+
+  <style>
+    /* Page Content Styling */
+    .page-content {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .page-content.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Arrow Styling */
+    .nav-arrow {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      font-size: 30px;
+      cursor: pointer;
+      color: #765555;
+      transition: transform 0.2s, color 0.2s;
+      z-index: 10;
+      user-select: none;
+    }
+
+    .nav-arrow:hover {
+      transform: scale(1.2);
+      color: #5e4444;
+    }
+
+    /* Button Styling inside pages */
+    .choose-btn {
+      background: #765555;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'La Belle Aurore', cursive;
+      font-size: 1rem;
+      margin-top: 10px;
+      align-self: flex-start;
+    }
+
+    .choose-btn:hover {
+      background: #5e4444;
+    }
+
+    /* Modal Styling - Ancient Paper */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(3px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: modalFadeIn 0.8s ease;
+    }
+
+    .modal-overlay.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background-color: #f9f6ef;
+      padding: 50px 40px;
+      border-radius: 2px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(94, 68, 68, 0.15);
+      font-family: 'La Belle Aurore', cursive;
+      border: 3px double #5e4444;
+      position: relative;
+      color: #4a3b3b;
+    }
+
+    .modal-content::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 6px;
+      right: 6px;
+      border: 1px dashed #765555;
+      pointer-events: none;
+    }
+
+    .modal-content h2 {
+      color: #5e4444;
+      margin-top: 0;
+      font-size: 2.8rem;
+      text-decoration: none;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-content p {
+      font-size: 1.4rem;
+      line-height: 1.4;
+      margin: 15px 0;
+    }
+
+    #close-modal-btn {
+      background: transparent;
+      color: #5e4444;
+      border: 2px solid #5e4444;
+      padding: 10px 30px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 25px;
+      font-family: 'La Belle Aurore', cursive;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
+    }
+
+    #close-modal-btn:hover {
+      background: #5e4444;
+      color: #f9f6ef;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsiveness - Updated to support .toggle selector */
+    @media (max-width: 800px) {
+      .journal {
+        transform: scale(0.8) rotateX(45deg) rotateY(0deg) rotateZ(-45deg);
+      }
+
+      .toggle:checked~.journal {
+        transform: scale(0.8) rotateZ(-4deg) rotateX(13deg) rotateY(0deg);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .journal {
+        transform: scale(0.6) rotateX(45deg) rotateY(0deg) rotateZ(-45deg);
+      }
+
+      .toggle:checked~.journal {
+        transform: scale(0.6) rotateZ(-4deg) rotateX(13deg) rotateY(0deg);
+      }
+
+      .modal-content {
+        padding: 20px;
+        width: 85%;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .journal {
+        transform: scale(0.45) rotateX(45deg) rotateY(0deg) rotateZ(-45deg);
+      }
+
+      .toggle:checked~.journal {
+        transform: scale(0.45) rotateZ(-4deg) rotateX(13deg) rotateY(0deg);
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- Removed the checkbox toggle -->
-  <div class="journal" id="my-journal">
-    <!-- Close Button REMOVED as requested -->
+  <!-- RESTORED: Checkbox Toggle -->
+  <input type="checkbox" class="toggle" id="book-toggle">
 
+  <div class="journal">
     <div class="back-cover"></div>
     <div class="bottom"></div>
     <div class="spine"></div>
@@ -868,26 +1056,10 @@
       <!-- Page 1: Table of Contents -->
       <div class="page-content active" id="page-1">
         Turn the page to see the legacy of:<br><br>
-        <div style="font-size: 0.8rem; font-family: 'Lato'; font-style: italic;">(Hover to preview, click to choose)
-        </div>
+        Robert Owen<br>
+        Edward Hunter<br>
+        Isaac John Wardle<br>
         <br>
-
-        <!-- Added data-image placeholders -->
-        <div class="ancestor-link" data-target="page-2"
-          data-preview="A man of resilience from the rugged hills of Wales." data-image="images/robert.jpg">
-          Robert Owen
-        </div><br>
-
-        <div class="ancestor-link" data-target="page-3"
-          data-preview="A leader of men, moving from the Midwest plains to the mountains."
-          data-image="images/edward.jpg">
-          Edward Hunter
-        </div><br>
-
-        <div class="ancestor-link" data-target="page-4"
-          data-preview="A musical soul carrying his violin and faith across the ocean." data-image="images/isaac.jpg">
-          Isaac John Wardle
-        </div><br>
       </div>
 
       <!-- Page 2 -->
@@ -896,7 +1068,6 @@
         <p style="font-size: 0.9em;">A man of resilience. His journey began in Wales, shaped by the rugged hills and
           deep valleys.</p>
         <button class="choose-btn">Choose This Path</button>
-        <button class="back-btn" data-target="page-1">Back to List</button>
       </div>
 
       <!-- Page 3 -->
@@ -904,7 +1075,6 @@
         <h3>Edward Hunter</h3>
         <p style="font-size: 0.9em;">A leader of men. From the plains of the Midwest to the mountains of the West.</p>
         <button class="choose-btn">Choose This Path</button>
-        <button class="back-btn" data-target="page-1">Back to List</button>
       </div>
 
       <!-- Page 4 -->
@@ -912,11 +1082,13 @@
         <h3>Isaac John Wardle</h3>
         <p style="font-size: 0.9em;">A musical soul. He carried his violin and his faith across the ocean.</p>
         <button class="choose-btn">Choose This Path</button>
-        <button class="back-btn" data-target="page-1">Back to List</button>
       </div>
 
     </div>
-    <div class="cover" id="book-cover">
+    <div class="cover">
+      <!-- Clicking the cover (or label) triggers the checkbox -->
+      <label for="book-toggle" style="position:absolute; width:100%; height:100%; cursor:pointer; z-index:5;"></label>
+
       <div class="front">The Ancestors <br><span
           style="font-size: 1rem; opacity: 0.8; display: block; margin-top: 20px;">(Click to Open)</span></div>
       <div class="back">
@@ -943,23 +1115,6 @@
     </div>
   </div>
 
-  <!-- Character Selection Modal -->
-  <div id="character-modal">
-    <div class="char-modal-content">
-      <img id="char-img" src="" alt="Ancestor Portrait">
-      <h3 id="char-name">Name</h3>
-      <p id="char-desc">Description...</p>
-      <div class="modal-actions">
-        <p style="font-size: 1rem; margin-bottom: 10px;">Play as this person?</p>
-        <button id="btn-yes">Yes</button>
-        <button id="btn-no">No</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tooltip Element -->
-  <div id="preview-tooltip">Preview text</div>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Intro Modal Logic
@@ -970,105 +1125,6 @@
           modal.classList.add('hidden');
         });
       }
-
-      // Book Open Logic (Cleaned up: No close X)
-      const journal = document.getElementById('my-journal');
-      const cover = document.getElementById('book-cover');
-
-      if (cover) {
-        cover.addEventListener('click', () => {
-          journal.classList.add('is-open');
-        });
-      }
-
-      // Navigation & Modal Logic
-      const pages = document.querySelectorAll('.page-content');
-      const links = document.querySelectorAll('.ancestor-link');
-      const backBtns = document.querySelectorAll('.back-btn');
-      const tooltip = document.getElementById('preview-tooltip');
-
-      const charModal = document.getElementById('character-modal');
-      const charImg = document.getElementById('char-img');
-      const charName = document.getElementById('char-name');
-      const charDesc = document.getElementById('char-desc');
-      const btnYes = document.getElementById('btn-yes');
-      const btnNo = document.getElementById('btn-no');
-
-      let currentTargetId = null; // Store pending target
-
-      function showPage(pageId) {
-        pages.forEach(p => p.classList.remove('active'));
-        const target = document.getElementById(pageId);
-        if (target) target.classList.add('active');
-      }
-
-      // 1. Ancestor Link Clicks -> Show Confirmation Modal
-      links.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.stopPropagation();
-
-          // Get data
-          const targetId = link.getAttribute('data-target');
-          const name = link.innerText;
-          const preview = link.getAttribute('data-preview');
-          const imageSrc = link.getAttribute('data-image');
-
-          // Set modal content
-          charName.innerText = name;
-          charDesc.innerText = preview;
-          charImg.src = imageSrc;
-
-          currentTargetId = targetId; // Remember where we want to go
-
-          // Show Modal
-          charModal.classList.add('visible');
-          tooltip.classList.remove('visible'); // Hide tooltip just in case
-        });
-
-        // Hover Tooltip
-        link.addEventListener('mouseenter', () => {
-          const text = link.getAttribute('data-preview');
-          if (text) {
-            tooltip.textContent = text;
-            tooltip.classList.add('visible');
-          }
-        });
-        link.addEventListener('mousemove', (e) => {
-          tooltip.style.left = e.clientX + 'px';
-          tooltip.style.top = e.clientY + 'px';
-        });
-        link.addEventListener('mouseleave', () => {
-          tooltip.classList.remove('visible');
-        });
-      });
-
-      // 2. Confirmation Buttons
-      if (btnYes) {
-        btnYes.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (currentTargetId) {
-            showPage(currentTargetId);
-            charModal.classList.remove('visible');
-          }
-        });
-      }
-
-      if (btnNo) {
-        btnNo.addEventListener('click', (e) => {
-          e.stopPropagation();
-          charModal.classList.remove('visible');
-          currentTargetId = null;
-        });
-      }
-
-      // 3. Back Button Clicks
-      backBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const targetId = btn.getAttribute('data-target');
-          showPage(targetId);
-        });
-      });
     });
   </script>
 </body>
