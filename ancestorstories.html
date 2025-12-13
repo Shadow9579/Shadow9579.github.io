@@ -359,11 +359,110 @@
       border-top-right-radius: 20px;
       box-shadow: 1px 6px 4px rgba(0, 0, 0, 0.5);
     }
+
+    /*pop-up onload modal*/
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(3px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: modalFadeIn 0.8s ease;
+    }
+    .modal-overlay.hidden {
+      display: none;
+    }
+    .modal-content {
+      background-color: #f9f6ef;
+      padding: 50px 40px;
+      border-radius: 2px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(94, 68, 68, 0.15);
+      font-family: 'La Belle Aurore', cursive;
+      border: 3px double #5e4444;
+      position: relative;
+      color: #4a3b3b;
+    }
+    .modal-content::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 6px;
+      right: 6px;
+      border: 1px dashed #765555;
+      pointer-events: none;
+    }
+    .modal-content h2 {
+      color: #5e4444;
+      margin-top: 0;
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+    }
+    .modal-content p {
+      font-size: 1.4rem;
+      line-height: 1.4;
+      margin: 15px 0;
+    }
+    #close-modal-btn {
+      background: transparent;
+      color: #5e4444;
+      border: 2px solid #5e4444;
+      padding: 10px 30px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 25px;
+      font-family: 'La Belle Aurore', cursive;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
+    }
+    #close-modal-btn:hover {
+      background: #5e4444;
+      color: #f9f6ef;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 
 <body>
-
+<!-- onload intro to playthrough modal-->
+ <div id="intro-modal" class="modal-overlay">
+<div class="modal-content">
+  <h2>What If Ancestor Stories</h2>
+  <p>Welcome to a handful of my ancestor stories.</p>
+  <p>Click on the name of one of my ancestors and play through a pivotal moment in their life. But <b>BEWARE</b> this is a <strong>WHAT IF/CHOOSE YOU OWN ADVENTURE.</strong></p>
+  <p>You can guide their decisions and see "What If" scenarios based on the choices you make.</p>
+  <button id="close-modal-btn">Continue</button>
+</div>
+<!-- JS for the onload modal-->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Intro Modal Logic
+  const modal = document.getElementById('intro-modal');
+  const closeBtn = document.getElementById('close-modal-btn');
+  
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+  }
+});
+</script>
+ </div>
   <input type="checkbox" class="toggle">
   <div class="journal">
     <div class="back-cover"></div>
