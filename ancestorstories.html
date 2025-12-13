@@ -437,6 +437,18 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /*Ancestor selection button */
+    .btn-tale:hover {
+      opacity:30%;
+    }
+    .btn-tale {
+      background-color: transparent;
+      border: none;
+      font-size: 1.5rem;
+      font-family: 'La Belle Aurore', cursive;
+      transition: opacity 1s; 
+    }
   </style>
 </head>
 
@@ -472,10 +484,10 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="spine"></div>
     <div class="paper">
       Click on the name of an ancestor to play through a pivotal moment:<br><br>
-      Robert Owen<br>
-      Edward Hunter<br>
-      Isaac John Wardle<br>
-      Another Ancestor here<br>
+     <button class="btn-tale">Robert Owen</button> <br>
+     <button class="btn-tale">Edward Hunter</button><br>
+     <button class="btn-tale">Isaac John Wardle</button><br>
+     <button class="btn-tale">Another Ancestor here</button><br>
       
 
     </div>
