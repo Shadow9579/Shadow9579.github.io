@@ -231,6 +231,8 @@
       font-family: 'La Belle Aurore', cursive;
       font-size: 22px;
       line-height: 30px;
+      z-index: 3;
+      pointer-events: none;
     }
 
 
@@ -471,6 +473,7 @@
       color: #765555;
       width: 100%;
       padding: 5px 0;
+      pointer-events: auto;
     }
 
     .tale-list {
@@ -521,7 +524,6 @@
     <!-- JS for the onload modal-->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // Intro Modal Logic
         const modal = document.getElementById('intro-modal');
         const closeBtn = document.getElementById('close-modal-btn');
 
@@ -531,13 +533,13 @@
           });
         }
 
-        // Responsive Book Scaling
+        // Making the book responsive
         function resizeBook() {
           const container = document.querySelector('.book-container');
           if (!container) return;
 
-          const padding = 40; // Safety buffer
-          const baseWidth = 850; // Approx visual width including rotation
+          const padding = 40; 
+          const baseWidth = 850;
           const windowWidth = window.innerWidth;
 
           let scale = 1;
@@ -549,7 +551,6 @@
         }
 
         window.addEventListener('resize', resizeBook);
-        // Initial call
         resizeBook();
       });
     </script>
@@ -582,7 +583,7 @@
         </div>
       </div>
     </div>
-    <!-- Closing input removed as it is self-closing/invalid -->
+
   </div>
   </div>
   <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js"
