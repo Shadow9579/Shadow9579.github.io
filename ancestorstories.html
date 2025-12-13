@@ -522,61 +522,65 @@
       box-shadow: 0px 9px 4px rgba(0, 0, 0, 0.4);
     }
 
-    /* Close Button (X) */
-    .close-book-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      color: #765555;
-      font-size: 24px;
-      cursor: pointer;
-      opacity: 0;
+    /* Hover Tooltip */
+    #preview-tooltip {
+      position: fixed;
+      background: #fdfbf7;
+      border: 1px solid #765555;
+      padding: 10px 15px;
+      border-radius: 5px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      font-family: 'Lato', sans-serif;
+      font-style: italic;
+      color: #5e4444;
+      font-size: 0.9rem;
       pointer-events: none;
-      transition: opacity 0.3s;
-      z-index: 20;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 1001;
+      max-width: 250px;
+      transform: translate(15px, 15px);
+      /* Offset from cursor */
     }
 
-    .journal.is-open .close-book-btn {
+    #preview-tooltip.visible {
       opacity: 1;
-      pointer-events: auto;
     }
 
-    /* Responsiveness */
-    @media (max-width: 800px) {
-      .journal {
-        transform: scale(0.8) rotateX(45deg) rotateY(0deg) rotateZ(-45deg);
-      }
-
-      .journal.is-open {
-        transform: scale(0.8) rotateZ(-4deg) rotateX(13deg) rotateY(0deg);
-      }
+    /* Ancestor Link Styling */
+    .ancestor-link {
+      cursor: pointer;
+      padding: 5px;
+      margin: 5px 0;
+      transition: color 0.2s, transform 0.2s;
+      display: inline-block;
     }
 
-    @media (max-width: 600px) {
-      .journal {
-        transform: scale(0.6) rotateX(45deg) rotateY(0deg) rotateZ(-45deg);
-      }
-
-      .journal.is-open {
-        transform: scale(0.6) rotateZ(-4deg) rotateX(13deg) rotateY(0deg);
-      }
-
-      .modal-content {
-        padding: 20px;
-        width: 85%;
-      }
+    .ancestor-link:hover {
+      color: #5e4444;
+      font-weight: bold;
+      transform: translateX(5px);
+      text-decoration: underline;
     }
 
-    @media (max-width: 450px) {
-      .journal {
-        transform: scale(0.45) rotateX(45deg) rotateY(0deg) rotateZ(-45deg);
-      }
+    /* Back Button Styling */
+    .back-btn {
+      background: transparent;
+      color: #765555;
+      border: 1px solid #765555;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'La Belle Aurore', cursive;
+      font-size: 0.9rem;
+      margin-top: 20px;
+      /* Spacing from content */
+      align-self: flex-start;
+    }
 
-      .journal.is-open {
-        transform: scale(0.45) rotateZ(-4deg) rotateX(13deg) rotateY(0deg);
-      }
+    .back-btn:hover {
+      background: #765555;
+      color: white;
     }
   </style>
 </head>
@@ -592,14 +596,26 @@
     <div class="bottom"></div>
     <div class="spine"></div>
     <div class="paper">
-      <!-- Page 1 -->
+      <!-- Page 1: Table of Contents -->
       <div class="page-content active" id="page-1">
         Turn the page to see the legacy of:<br><br>
-        Robert Owen<br>
-        Edward Hunter<br>
-        Isaac John Wardle<br>
+        <div style="font-size: 0.8rem; font-family: 'Lato'; font-style: italic;">(Hover to preview, click to play)</div>
         <br>
-        (Click the arrow to view)
+
+        <div class="ancestor-link" data-target="page-2"
+          data-preview="A man of resilience from the rugged hills of Wales.">
+          Robert Owen
+        </div><br>
+
+        <div class="ancestor-link" data-target="page-3"
+          data-preview="A leader of men, moving from the Midwest plains to the mountains.">
+          Edward Hunter
+        </div><br>
+
+        <div class="ancestor-link" data-target="page-4"
+          data-preview="A musical soul carrying his violin and faith across the ocean.">
+          Isaac John Wardle
+        </div><br>
       </div>
 
       <!-- Page 2 -->
@@ -608,6 +624,7 @@
         <p style="font-size: 0.9em;">A man of resilience. His journey began in Wales, shaped by the rugged hills and
           deep valleys.</p>
         <button class="choose-btn">Choose This Path</button>
+        <button class="back-btn" data-target="page-1">&larr; Back to List</button>
       </div>
 
       <!-- Page 3 -->
@@ -615,6 +632,7 @@
         <h3>Edward Hunter</h3>
         <p style="font-size: 0.9em;">A leader of men. From the plains of the Midwest to the mountains of the West.</p>
         <button class="choose-btn">Choose This Path</button>
+        <button class="back-btn" data-target="page-1">&larr; Back to List</button>
       </div>
 
       <!-- Page 4 -->
@@ -622,9 +640,10 @@
         <h3>Isaac John Wardle</h3>
         <p style="font-size: 0.9em;">A musical soul. He carried his violin and his faith across the ocean.</p>
         <button class="choose-btn">Choose This Path</button>
+        <button class="back-btn" data-target="page-1">&larr; Back to List</button>
       </div>
 
-      <div class="nav-arrow" id="next-page-btn">&#10140;</div>
+      <!-- Removed Arrow -->
     </div>
     <div class="cover" id="book-cover">
       <div class="front">The Ancestors <br><span
@@ -653,6 +672,9 @@
     </div>
   </div>
 
+  <!-- Tooltip Element -->
+  <div id="preview-tooltip">Preview text</div>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Modal Logic
@@ -670,14 +692,12 @@
       const cover = document.getElementById('book-cover');
       const closeX = document.getElementById('close-book-x');
 
-      // Open book when clicking cover
       if (cover) {
         cover.addEventListener('click', () => {
           journal.classList.add('is-open');
         });
       }
 
-      // Close book when clicking the X
       if (closeX) {
         closeX.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -685,25 +705,57 @@
         });
       }
 
-      // Pagination Logic
+      // Navigation & Hover Logic
       const pages = document.querySelectorAll('.page-content');
-      const nextBtn = document.getElementById('next-page-btn');
-      let currentPageIndex = 0;
+      const links = document.querySelectorAll('.ancestor-link');
+      const backBtns = document.querySelectorAll('.back-btn');
+      const tooltip = document.getElementById('preview-tooltip');
 
-      if (nextBtn) {
-        nextBtn.addEventListener('click', (e) => {
-          e.stopPropagation(); // Crucial: prevent click from bubbling up to document
-
-          // Hide current page
-          if (pages[currentPageIndex]) pages[currentPageIndex].classList.remove('active');
-
-          // Increment index
-          currentPageIndex = (currentPageIndex + 1) % pages.length;
-
-          // Show next page
-          if (pages[currentPageIndex]) pages[currentPageIndex].classList.add('active');
-        });
+      // Function to show specific page
+      function showPage(pageId) {
+        pages.forEach(p => p.classList.remove('active'));
+        const target = document.getElementById(pageId);
+        if (target) target.classList.add('active');
       }
+
+      // 1. Ancestor Link Clicks
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const targetId = link.getAttribute('data-target');
+          showPage(targetId);
+          // Hide tooltip on click to prevent it sticking
+          tooltip.classList.remove('visible');
+        });
+
+        // 2. Hover Tooltip
+        link.addEventListener('mouseenter', () => {
+          const text = link.getAttribute('data-preview');
+          if (text) {
+            tooltip.textContent = text;
+            tooltip.classList.add('visible');
+          }
+        });
+
+        link.addEventListener('mousemove', (e) => {
+          // Position tooltip near cursor
+          tooltip.style.left = e.clientX + 'px';
+          tooltip.style.top = e.clientY + 'px';
+        });
+
+        link.addEventListener('mouseleave', () => {
+          tooltip.classList.remove('visible');
+        });
+      });
+
+      // 3. Back Button Clicks
+      backBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const targetId = btn.getAttribute('data-target');
+          showPage(targetId);
+        });
+      });
     });
   </script>
 </body>
