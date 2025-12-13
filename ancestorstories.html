@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ancestors Stories</title>
   <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet">
 
 
   <style type="text/css">
@@ -376,9 +378,11 @@
       z-index: 1000;
       animation: modalFadeIn 0.8s ease;
     }
+
     .modal-overlay.hidden {
       display: none;
     }
+
     .modal-content {
       background-color: #f9f6ef;
       padding: 50px 40px;
@@ -391,6 +395,7 @@
       position: relative;
       color: #4a3b3b;
     }
+
     .modal-content::after {
       content: '';
       position: absolute;
@@ -401,6 +406,7 @@
       border: 1px dashed #765555;
       pointer-events: none;
     }
+
     .modal-content h2 {
       color: #5e4444;
       margin-top: 0;
@@ -408,12 +414,14 @@
       margin-bottom: 20px;
       text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
     }
+
     .modal-content p {
       font-size: 1.4rem;
-      font-family:"Lato", sans-serif;
+      font-family: "Lato", sans-serif;
       line-height: 1.4;
       margin: 15px 0;
     }
+
     #close-modal-btn {
       background: transparent;
       color: #5e4444;
@@ -423,86 +431,159 @@
       cursor: pointer;
       transition: all 0.3s ease;
       margin-top: 25px;
-      font-family:"Lato", sans-serif;
+      font-family: "Lato", sans-serif;
       font-weight: bold;
       position: relative;
       z-index: 2;
     }
+
     #close-modal-btn:hover {
       background: #5e4444;
       color: #f9f6ef;
       box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     }
+
     @keyframes modalFadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /*Ancestor selection button */
     .btn-tale:hover {
-      opacity:30%;
+      opacity: 30%;
     }
+
     .btn-tale {
       background-color: transparent;
       border: none;
       font-size: 1.5rem;
       font-family: 'La Belle Aurore', cursive;
-      transition: opacity 1s; 
+      transition: opacity 1s;
+      cursor: pointer;
+      text-align: left;
+      color: #765555;
+      width: 100%;
+      padding: 5px 0;
+    }
+
+    .tale-list {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    /* Responsive Styles */
+    .book-container {
+      position: relative;
+      width: 600px;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media (max-width: 600px) {
+      .modal-content {
+        width: 90%;
+        padding: 30px 20px;
+      }
+
+      .modal-content h2 {
+        font-size: 2rem;
+      }
+
+      .modal-content p {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
 
 <body>
-<!-- onload intro to playthrough modal-->
- <div id="intro-modal" class="modal-overlay">
-<div class="modal-content">
-  <h2>What If Ancestor Stories</h2>
-  <p>Welcome to a handful of my ancestor stories.</p>
-  <p>Click to open and close the diary, then click on the name of one of my ancestors and play through a pivotal moment in their life. But <b>BEWARE</b> this is a <strong>WHAT IF/CHOOSE YOU OWN ADVENTURE.</strong></p>
-  <p>You can guide their decisions and see "What If" scenarios based on the choices you make.</p>
-  <button id="close-modal-btn">Continue</button>
-</div>
-<!-- JS for the onload modal-->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Intro Modal Logic
-  const modal = document.getElementById('intro-modal');
-  const closeBtn = document.getElementById('close-modal-btn');
-  
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      modal.classList.add('hidden');
-    });
-  }
-});
-</script>
- </div>
-  <input type="checkbox" class="toggle">
-  <div class="journal">
-    <div class="back-cover"></div>
-    <div class="bottom"></div>
-    <div class="spine"></div>
-    <div class="paper">
-      Click on the name of an ancestor to play through a pivotal moment:<br><br>
-     <button class="btn-tale">Robert Owen</button> <br>
-     <button class="btn-tale">Edward Hunter</button><br>
-     <button class="btn-tale">Isaac John Wardle</button><br>
-     <button class="btn-tale">Another Ancestor here</button><br>
-      
-
+  <!-- onload intro to playthrough modal-->
+  <div id="intro-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h2>What If Ancestor Stories</h2>
+      <p>Welcome to a handful of my ancestor stories.</p>
+      <p>Click to open and close the diary, then click on the name of one of my ancestors and play through a pivotal
+        moment in their life. But <b>BEWARE</b> this is a <strong>WHAT IF/CHOOSE YOU OWN ADVENTURE.</strong></p>
+      <p>You can guide their decisions and see "What If" scenarios based on the choices you make.</p>
+      <button id="close-modal-btn">Continue</button>
     </div>
-    <div class="cover">
-      <div class="front">The Ancestors</div>
-      <div class="back">
-        This diary belongs to: Emma Hunter<br><br>
-        <div style="font-size: 1.15rem;">
-          This is a culmination of stories of those who came before, not
-          leaving gold or riches, but a name, lessons, and a path
-          shaped through their honor and blood.<br></div>
+    <!-- JS for the onload modal-->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Intro Modal Logic
+        const modal = document.getElementById('intro-modal');
+        const closeBtn = document.getElementById('close-modal-btn');
+
+        if (closeBtn) {
+          closeBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+          });
+        }
+
+        // Responsive Book Scaling
+        function resizeBook() {
+          const container = document.querySelector('.book-container');
+          if (!container) return;
+
+          const padding = 40; // Safety buffer
+          const baseWidth = 850; // Approx visual width including rotation
+          const windowWidth = window.innerWidth;
+
+          let scale = 1;
+          if (windowWidth < baseWidth) {
+            scale = (windowWidth - padding) / baseWidth;
+          }
+
+          container.style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('resize', resizeBook);
+        // Initial call
+        resizeBook();
+      });
+    </script>
+  </div>
+  <div class="book-container">
+    <input type="checkbox" class="toggle">
+    <div class="journal">
+      <div class="back-cover"></div>
+      <div class="bottom"></div>
+      <div class="spine"></div>
+      <div class="paper">
+        Click on the name of an ancestor to play through a pivotal moment:<br><br>
+        <div class="tale-list">
+          <button class="btn-tale">Robert Owen</button>
+          <button class="btn-tale">Edward Hunter</button>
+          <button class="btn-tale">Isaac John Wardle</button>
+          <button class="btn-tale">Another Ancestor here</button>
+        </div>
+
+
+      </div>
+      <div class="cover">
+        <div class="front">The Ancestors</div>
+        <div class="back">
+          This diary belongs to: Emma Hunter<br><br>
+          <div style="font-size: 1.15rem;">
+            This is a culmination of stories of those who came before, not
+            leaving gold or riches, but a name, lessons, and a path
+            shaped through their honor and blood.<br></div>
+        </div>
       </div>
     </div>
+    <!-- Closing input removed as it is self-closing/invalid -->
   </div>
-  </input>
   </div>
   <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js"
     data-cf-settings="ebab3dc9e66b01342f30cf5c-|49" defer></script>
