@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--Play through made by yours truly Emma Hunter-->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isaac John Wardle | Ancestor Stories</title>
+  <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet">
+
+  <style type="text/css">
+
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W630DJTY55"
+    type="ebab3dc9e66b01342f30cf5c-text/javascript"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=La+Belle+Aurore');
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'La Belle Aurore', cursive;
+      background: #222;
+      color: white;
+      transition: background-image 0.5s ease;
+      min-height: 100vh;
+    }
+
+    /*Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(3px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: modalFadeIn 0.8s ease;
+    }
+
+    .modal-overlay.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background-color: #f9f6ef;
+      padding: 50px 40px;
+      border-radius: 2px;
+      max-width: 700px;
+      text-align: left;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(94, 68, 68, 0.15);
+      font-family: 'La Belle Aurore', cursive;
+      border: 3px double #5e4444;
+      position: relative;
+      color: #4a3b3b;
+    }
+
+    .modal-content::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 6px;
+      right: 6px;
+      border: 1px dashed #765555;
+      pointer-events: none;
+    }
+
+    /* Modal Body (Image and Text) */
+    .modal-body {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .modal-image {
+      width: 150px;
+      height: auto;
+      float: left;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-text {
+      flex: 1;
+    }
+
+    .modal-content h2 {
+      color: #5e4444;
+      margin-top: 0;
+      font-size: 2.8rem;
+      text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-content p {
+      font-size: 1rem;
+      font-family: "Lato", sans-serif;
+      line-height: 1.4;
+      margin: 15px 0;
+    }
+
+    /* Modal Buttons */
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    #continue-btn,
+    #return-btn {
+      background: transparent;
+      color: #5e4444;
+      border: 2px solid #5e4444;
+      padding: 10px 30px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: "Lato", sans-serif;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+    }
+
+    #continue-btn:hover,
+    #return-btn:hover {
+      background: #5e4444;
+      color: #f9f6ef;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Modal*/
+    @media (max-width: 600px) {
+      .modal-content {
+        width: 90%;
+        padding: 30px 20px;
+      }
+
+      .modal-body {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .modal-image {
+        width: 100px;
+      }
+
+      .modal-content h2 {
+        font-size: 2rem;
+      }
+
+      .modal-content p {
+        font-size: 1.1rem;
+      }
+
+      .modal-buttons {
+        flex-direction: column;
+      }
+    }
+
+    /* Intro Dialogue behind the modal */
+    #intro-container {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #dialogue-box {
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #fff;
+      padding: 20px;
+      width: 500px;
+      min-height: 150px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.5s ease;
+      box-sizing: border-box;
+      display: inline-block;
+      color: white;
+      font-family: 'La Belle Aurore', cursive;
+      font-size: 1.5rem;
+    }
+
+    #dialogue-text {
+      white-space: pre-wrap;
+      min-height: 80px;
+    }
+
+    #continue-hint {
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+      font-size: 0.8em;
+      opacity: 0.6;
+    }
+
+    /*CYOA portion of design*/
+    body.cyoa {
+      background-size: cover;
+      background-position: center;
+    }
+
+    #cyoa-dialogue-box {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 25px;
+      font-size: 1.35em;
+      cursor: pointer;
+      font-family: "Lato", sans-serif;
+      box-sizing: border-box;
+    }
+
+    #text {
+      margin-bottom: 10px;
+      padding-left: 15px;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+
+    #choices {
+      display: flex;
+      justify-content: space-around;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .choice {
+      color: #0ff;
+      cursor: pointer;
+      font-family: "Lato", sans-serif;
+      padding: 8px;
+      border: 1px solid #0ff;
+      border-radius: 5px;
+      margin: 0 5px;
+    }
+
+    .choice:hover {
+      background: rgba(0, 255, 255, 0.2);
+    }
+
+    /* Responsive CYOA */
+    @media (max-width: 768px) {
+      #dialogue-box {
+        width: 90%;
+        padding: 15px;
+        font-size: 0.9em;
+      }
+
+      #cyoa-dialogue-box {
+        font-size: 1em;
+      }
+
+      #choices {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .choice {
+        margin: 5px 0;
+        width: 80%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #dialogue-box {
+        width: 95%;
+        padding: 10px;
+        font-size: 0.8em;
+      }
+
+      #cyoa-dialogue-box {
+        font-size: 0.9em;
+      }
+
+      #continue-hint {
+        font-size: 0.7em;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <!--Intro Modal to Robert Owen-->
+  <div id="intro-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img src="images/What If Playthrough/IsaacJohnWardle.jpg" alt="Portrait of Isaac John Wardle"
+          class="modal-image">
+        <div class="modal-text">
+          <h2>Isaac John Wardle</h2>
+          <p><b>Bio Excerpt:</b> "Born of humble parents in Ravenstone, Leicestershire, and trained to labor from an early age, accustomed early on to hardship. Though sparingly schooled, he was quick in understanding and whatever he took a hand in he pursued with all diligence. Zealously devoted to religion and a sincere seeker of truth, the first among his family to embrace the restored gospel. Having found it, sold all he had to gather with the Saints, enduring hunger, cold, but suffering with willing obedience and steadfast faith."<br></p>
+          <p><b>Pivotal Moment Excerpt:</b> "After the time of Oliver and Richard Cromwell, Robert was commissioned
+            captain of the militia, and governor of Bewmares [sic], a seaport town upon the Irish coast. But when Robert
+            Owen was required to take the Oath of Allegiance and Supremacy, he refused, and was imprisoned for five
+            years. After he was released they emigrated to America in the ship 'Vine' of Liverpool, sailing from
+            Dolsyrerre, near Dolgules, Merioneth, arriving at Philadelphia 17 Sep 1684."</p>
+        </div>
+      </div>
+      <div class="modal-buttons">
+        <button id="continue-btn">Continue</button>
+        <button id="return-btn" onclick="window.location.href='ancestorstories.html';">Return to Diary</button>
+      </div>
+      <!-- Intro Dialogue beneath modal -->
+      <div id="intro-container">
+        <div id="dialogue-box">
+          <div id="dialogue-text"></div>
+          <div id="continue-hint">Click to continue...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CYOA Dialogue Box -->
+  <div id="cyoa-dialogue-box">
+    <div id="text"></div>
+    <div id="choices"></div>
+  </div>
+
+  <script>
+    // Intro dialogue
+    const dialogueLines = [
+      "Merionethshire, North Wales, 1660s.",
+      "You are Robert Owen.",
+      "A man descended from one of the most ancient and greatest families.",
+      "A man of wealth and respected by all.",
+      "A man brought up scholarly, with sound understanding.",
+      "When given a task, doing that task with all of his might.",
+      "A man devoted to religion.",
+      "During this time the King rules the church."
+    ];
+
+    let currentLine = 0;
+    let isTyping = false;
+    let typingTimeout;
+    let inIntro = true;
+
+    const dialogueTextEl = document.getElementById('dialogue-text');
+    const dialogueBoxEl = document.getElementById('dialogue-box');
+    const bodyEl = document.body;
+
+    // Function to type text with animation
+    function typeLine(line, callback) {
+      isTyping = true;
+      dialogueTextEl.textContent = '';
+      let i = 0;
+
+      function typeChar() {
+        if (i < line.length) {
+          dialogueTextEl.textContent += line.charAt(i);
+          i++;
+          typingTimeout = setTimeout(typeChar, 40); // typing speed
+        } else {
+          isTyping = false;
+          if (callback) callback();
+        }
+      }
+      typeChar();
+    }
+
+    // Function to show next line
+    function showNextLine() {
+      if (isTyping) {
+        // If still typing, skip to full line instantly
+        clearTimeout(typingTimeout);
+        dialogueTextEl.textContent = dialogueLines[currentLine];
+        isTyping = false;
+        return;
+      }
+
+      if (currentLine < dialogueLines.length) {
+        typeLine(dialogueLines[currentLine], () => { });
+        currentLine++;
+      } else {
+        // End of intro, transition to CYOA
+        startCYOA();
+      }
+    }
+
+    // Continue button to show dialogue
+    document.getElementById('continue-btn').addEventListener('click', () => {
+      document.querySelector('.modal-body').style.display = 'none';
+      document.querySelector('.modal-buttons').style.display = 'none';
+      document.getElementById('intro-container').style.display = 'block';
+      showNextLine();
+    });
+
+    // Click to continue dialogue
+    dialogueBoxEl.addEventListener('click', showNextLine);
+
+    // CYOA part
+    const story = [
+      {
+        text: "You look up from your work.\nA man approaches along the road.\n\nIt is John, your friend who returned from England.\nHe carries news of a growing religious movement.\n\nThat evening, a meeting is held.\n\nYou go.",
+        bg: "scene1.jpg", // Dirt road leading toward a village, small human figure approaching, soft dusk lighting
+        choices: [
+          { text: "Sit quietly and observe", next: 1 },
+          { text: "Listen openly and return again", next: 2 }
+        ]
+      },
+      {
+        text: "You listen with caution.\nThe ideas are unfamiliar.\nDirect access to God.\nNo priest. No oath.\n\nYou leave uncertain—but restless.\n\nThat night, sleep does not come easily.\n\nThe question follows you.",
+        bg: "scene1b.jpg", // Interior of a simple meeting space, wooden benches, soft light, slight blur or glow
+        choices: [
+          { text: "Proceed", next: 3 }
+        ]
+      },
+      {
+        text: "The words strike deep.\nA quiet certainty settles in your heart.\n\nYou return again.\nYour wife listens with you.\n\nTogether, you begin attending meetings of the Society of Friends.",
+        bg: "scene1b.jpg", // Same as above
+        choices: [
+          { text: "Proceed", next: 3 }
+        ]
+      },
+      {
+        text: "You and your wife speak late into the night.\nWhat does this faith demand?\nWhat might it cost?\n\nOutside, persecution grows.\n\nFriends are fined.\nMeetings are broken.\n\nStill, your house remains open.",
+        bg: "scene2.jpg", // Interior domestic scene, candle on table, shadows on stone walls, two chairs, warm but fragile light
+        choices: [
+          { text: "Proceed", next: 4 }
+        ]
+      },
+      {
+        text: "A summons arrives.\n\nKing Charles II requires obedience.\nYou are ordered to swear the\nOath of Allegiance and Supremacy.\n\nThe oath declares the king head of the church.\n\nYou know you cannot swear it.",
+        bg: "scene3.jpg", // Official document or parchment, faded royal seal, heavy shadow, stark contrast
+        choices: [
+          { text: "Take the oath to preserve safety", next: 5 },
+          { text: "Refuse and remain faithful", next: 6 }
+        ]
+      },
+      {
+        text: "You speak the words.\n\nYour estate is spared.\nYour freedom remains.\n\nBut meetings stop.\nYour house grows quiet.\n\nThe peace feels thin.\n\nThe danger has not passed.",
+        bg: "scene3a.jpg", // Interior of a respectable home, empty, clean but lifeless, cool lighting
+        choices: [
+          { text: "Proceed", next: 7 }
+        ]
+      },
+      {
+        text: "You refuse.\n\nYou are taken to prison at Dolgelley—\nwithin sight of your home.\n\nYour wife watches as you are led away.",
+        bg: "scene3b.jpg", // Stone prison wall, narrow barred window, cold, desaturated, slight camera tilt
+        choices: [
+          { text: "Proceed", next: 8 }
+        ]
+      },
+      {
+        text: "Pamphlets arrive from William Penn.\n\nA place called Pennsylvania.\nFreedom of worship.\nNo oaths.\n\nThe ocean lies between fear and hope.",
+        bg: "scene6.jpg", // Map fragment, Wales fading, America faintly visible, sea dominates
+        choices: [
+          { text: "Remain in Wales", next: 9 },
+          { text: "Leave for America", next: 10 }
+        ]
+      },
+      {
+        text: "Years pass.\n\nFive years of confinement.\nYour health declines.\n\nYour wife struggles alone.\nRelatives urge her to convince you to yield.\n\nShe refuses.\n\nShe works.\nShe pleads.\nShe endures.",
+        bg: "scene4.jpg", // Close-up textures: stone, iron bars, cracked walls, overlay faint handwritten text, limited color
+        choices: [
+          { text: "Proceed", next: 11 }
+        ]
+      },
+      {
+        text: "You stay.\n\nPersecution returns.\nThe danger never fully lifts.\n\nThe choice remains unanswered.",
+        bg: "scene6.jpg", // Same as scene6
+        choices: [
+          { text: "Return to Choice 3", next: 4 } // Loop back to the oath choice
+        ]
+      },
+      {
+        text: "You leave.\n\nIn 1684, you board the ship Vine.\n\nThe coast of Wales disappears.",
+        bg: "scene6.jpg", // Same as scene6
+        choices: [
+          { text: "Proceed", next: 12 }
+        ]
+      },
+      {
+        text: "You are released.\n\nYour body is weak.\nYour spirit remains firm.\n\nYour wife nurses you back to strength.\n\nChildren are born.\nSome are lost.\n\nThe world remains dangerous.",
+        bg: "scene5.jpg", // Soft morning light through window, bed or chair, gentle contrast, muted warmth
+        choices: [
+          { text: "Proceed", next: 7 } // Back to the invitation
+        ]
+      },
+      {
+        text: "You arrive.\n\nNo oath is demanded.\nYour house opens again.\n\nYou live openly.\nYou worship freely.\n\nYou are older now.\nBut you are free.\n\nSome choices delay the journey.\nOthers reveal where it was always leading.",
+        bg: "scene7.jpg", // Final scene background, perhaps a peaceful landscape or home in Pennsylvania
+        choices: [
+          { text: "The End", next: null } // End the story
+        ]
+      }
+    ];
+
+    let currentIndex = 0;
+    const cyoaDialogueBox = document.getElementById("cyoa-dialogue-box");
+    const textDiv = document.getElementById("text");
+    const choicesDiv = document.getElementById("choices");
+
+    function startCYOA() {
+      inIntro = false;
+      bodyEl.className = 'cyoa';
+      document.getElementById('intro-modal').classList.add('hidden');
+      cyoaDialogueBox.style.display = 'block';
+      updateScene();
+    }
+
+    function updateScene() {
+      const scene = story[currentIndex];
+      if (!scene) {
+        // End of story
+        cyoaDialogueBox.style.display = 'none';
+        alert("The story has ended. Thank you for playing!");
+        return;
+      }
+      textDiv.textContent = scene.text;
+      bodyEl.style.backgroundImage = `url('${scene.bg}')`;
+      choicesDiv.innerHTML = "";
+      scene.choices.forEach(choice => {
+        const btn = document.createElement("div");
+        btn.textContent = choice.text;
+        btn.className = "choice";
+        btn.onclick = () => {
+          if (choice.next === null) {
+            // End the story
+            window.location.href = 'ancestorstories.html';
+          } else {
+            currentIndex = choice.next;
+            updateScene();
+          }
+        };
+        choicesDiv.appendChild(btn);
+      });
+    }
+
+  </script>
+</body>
+
+</html>
