@@ -554,8 +554,7 @@
         btn.onclick = () => {
           if (choice.next === null) {
             // End the story
-            cyoaDialogueBox.style.display = 'none';
-            alert("The story has ended. Thank you for playing!");
+            window.location.href = 'ancestorstories.html';
           } else {
             currentIndex = choice.next;
             updateScene();
