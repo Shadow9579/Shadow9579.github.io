@@ -468,3 +468,60 @@
       {
         text: "You are released.\n\nYour body is weak.\nYour spirit remains firm.\n\nYour wife nurses you back to strength.\n\nChildren are born.\nSome are lost.\n\nThe world remains dangerous.",
         bg: "scene5.jpg", // Soft morning light through window, bed or chair, gentle contrast
+        choices: [
+          { text: "Proceed", next: 7 } // Back to the invitation
+        ]
+      },
+      {
+        text: "You arrive.\n\nNo oath is demanded.\nYour house opens again.\n\nYou live openly.\nYou worship freely.\n\nYou are older now.\nBut you are free.\n\nSome choices delay the journey.\nOthers reveal where it was always leading.",
+        bg: "scene7.jpg", // Final scene background, perhaps a peaceful landscape or home in Pennsylvania
+        choices: [
+          { text: "The End", next: null } // End the story
+        ]
+      }
+    ];
+
+let currentIndex = 0;
+const cyoaDialogueBox = document.getElementById("cyoa-dialogue-box");
+const textDiv = document.getElementById("text");
+const choicesDiv = document.getElementById("choices");
+
+function startCYOA() {
+  inIntro = false;
+  bodyEl.className = 'cyoa';
+  document.getElementById('intro-modal').classList.add('hidden');
+  cyoaDialogueBox.style.display = 'block';
+  updateScene();
+}
+
+function updateScene() {
+  const scene = story[currentIndex];
+  if (!scene) {
+    // End of story
+    cyoaDialogueBox.style.display = 'none';
+    alert("The story has ended. Thank you for playing!");
+    return;
+  }
+  textDiv.textContent = scene.text;
+  bodyEl.style.backgroundImage = `url('${scene.bg}')`;
+  choicesDiv.innerHTML = "";
+  scene.choices.forEach(choice => {
+    const btn = document.createElement("div");
+    btn.textContent = choice.text;
+    btn.className = "choice";
+    btn.onclick = () => {
+      if (choice.next === null) {
+        // End the story
+        cyoaDialogueBox.style.display = 'none';
+        alert("The story has ended. Thank you for playing!");
+      } else {
+        currentIndex = choice.next;
+        updateScene();
+      }
+    };
+    choicesDiv.appendChild(btn);
+  });
+}
+</script>
+</body>
+</html>
