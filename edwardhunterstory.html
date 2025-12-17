@@ -357,14 +357,16 @@
   <script>
     // Intro dialogue
     const dialogueLines = [
-      "Merionethshire, North Wales, 1660s.",
-      "You are Robert Owen.",
-      "A man descended from one of the most ancient and greatest families.",
-      "A man of wealth and respected by all.",
-      "A man brought up scholarly, with sound understanding.",
-      "When given a task, doing that task with all of his might.",
-      "A man devoted to religion.",
-      "During this time the King rules the church."
+      "Chester County, Pennsylvania, Spring, 1839.",
+      "You are Edward Hunter",
+      "A man of means, repute, and of sound conscience.",
+      "A man of wealth and neighbors trust you.",
+      "Your word carries weight and your land provides comfort.",
+      "The valley is quiet now, yet strangers have arrived--",
+      "men who preach doctrines not known in these parts,",
+      "and whose presence stirs suspicion and anger.",
+      "History will aks not whether you are respected,",
+      "but whether or not you will act."
     ];
 
     let currentLine = 0;
@@ -425,100 +427,204 @@
     // Click to continue dialogue
     dialogueBoxEl.addEventListener('click', showNextLine);
 
-    // CYOA part
-    const story = [
+        // CYOA part
+        const story = [
       {
-        text: "You look up from your work.\nA man approaches along the road.\n\nIt is John, your friend who returned from England.\nHe carries news of a growing religious movement.\n\nThat evening, a meeting is held.\n\nYou go.",
-        bg: "scene1.jpg", // Dirt road leading toward a village, small human figure approaching, soft dusk lighting
+        text: "The schoolhouse at West Nantmeal lies in ashes.\nChildren are without instruction.\nThe townsfolk meet to discuss rebuilding.",
+        bg: "burned_schoolhouse.jpg",
         choices: [
-          { text: "Sit quietly and observe", next: 1 },
-          { text: "Listen openly and return again", next: 2 }
+          { text: "Offer land and means—with a condition", next: 1 },
+          { text: "Allow others to decide", next: 2 }
         ]
       },
       {
-        text: "You listen with caution.\nThe ideas are unfamiliar.\nDirect access to God.\nNo priest. No oath.\n\nYou leave uncertain—but restless.\n\nThat night, sleep does not come easily.\n\nThe question follows you.",
-        bg: "scene1b.jpg", // Interior of a simple meeting space, wooden benches, soft light, slight blur or glow
+        text: "The West Nantmeal Seminary rises from the ashes.\nThe covenant is written: all persons and persuasions may worship there.\nTime passes, yet the valley forgets the promise.",
+        bg: "covenant_remembered.jpg",
         choices: [
-          { text: "Proceed", next: 3 }
+          { text: "Keep the covenant in mind", next: 3 },
+          { text: "Let it fade into memory", next: 4 }
         ]
       },
       {
-        text: "The words strike deep.\nA quiet certainty settles in your heart.\n\nYou return again.\nYour wife listens with you.\n\nTogether, you begin attending meetings of the Society of Friends.",
-        bg: "scene1b.jpg", // Same as above
+        text: "Edward offers land and funding, asking only that all persuasions may worship freely.",
+        bg: "quiet_outcome.jpg",
         choices: [
-          { text: "Proceed", next: 3 }
+          { text: "Proceed", next: 5 }
         ]
       },
       {
-        text: "You and your wife speak late into the night.\nWhat does this faith demand?\nWhat might it cost?\n\nOutside, persecution grows.\n\nFriends are fined.\nMeetings are broken.\n\nStill, your house remains open.",
-        bg: "scene2.jpg", // Interior domestic scene, candle on table, shadows on stone walls, two chairs, warm but fragile light
+        text: "Two missionaries request the Seminary.\nThe people stir in anger and suspicion.",
+        bg: "strangers_arrive.jpg",
         choices: [
-          { text: "Proceed", next: 4 }
+          { text: "Speak in their defense", next: 6 },
+          { text: "Remain silent", next: 7 }
         ]
       },
       {
-        text: "A summons arrives.\n\nKing Charles II requires obedience.\nYou are ordered to swear the\nOath of Allegiance and Supremacy.\n\nThe oath declares the king head of the church.\n\nYou know you cannot swear it.",
-        bg: "scene3.jpg", // Official document or parchment, faded royal seal, heavy shadow, stark contrast
-        choices: [
-          { text: "Take the oath to preserve safety", next: 5 },
-          { text: "Refuse and remain faithful", next: 6 }
-        ]
-      },
-      {
-        text: "You speak the words.\n\nYour estate is spared.\nYour freedom remains.\n\nBut meetings stop.\nYour house grows quiet.\n\nThe peace feels thin.\n\nThe danger has not passed.",
-        bg: "scene3a.jpg", // Interior of a respectable home, empty, clean but lifeless, cool lighting
-        choices: [
-          { text: "Proceed", next: 7 }
-        ]
-      },
-      {
-        text: "You refuse.\n\nYou are taken to prison at Dolgelley—\nwithin sight of your home.\n\nYour wife watches as you are led away.",
-        bg: "scene3b.jpg", // Stone prison wall, narrow barred window, cold, desaturated, slight camera tilt
+        text: "Edward assumes the matter is settled and gives it little thought.",
+        bg: "distance.jpg",
         choices: [
           { text: "Proceed", next: 8 }
         ]
       },
       {
-        text: "Pamphlets arrive from William Penn.\n\nA place called Pennsylvania.\nFreedom of worship.\nNo oaths.\n\nThe ocean lies between fear and hope.",
-        bg: "scene6.jpg", // Map fragment, Wales fading, America faintly visible, sea dominates
+        text: "Edward recalls his vow, knowing words once given remain binding.",
+        bg: "threat_locust_grove.jpg",
         choices: [
-          { text: "Remain in Wales", next: 9 },
-          { text: "Leave for America", next: 10 }
+          { text: "Proceed", next: 9 }
         ]
       },
       {
-        text: "Years pass.\n\nFive years of confinement.\nYour health declines.\n\nYour wife struggles alone.\nRelatives urge her to convince you to yield.\n\nShe refuses.\n\nShe works.\nShe pleads.\nShe endures.",
-        bg: "scene4.jpg", // Close-up textures: stone, iron bars, cracked walls, overlay faint handwritten text, limited color
+        text: "Edward reminds the people of the agreement and declares the strangers have their right to meet.",
+        bg: "crowd_unchecked.jpg",
+        choices: [
+          { text: "Proceed", next: 10 }
+        ]
+      },
+      {
+        text: "Edward allows neighbors to decide without his voice.",
+        bg: "stand_taken.jpg",
         choices: [
           { text: "Proceed", next: 11 }
         ]
       },
       {
-        text: "You stay.\n\nPersecution returns.\nThe danger never fully lifts.\n\nThe choice remains unanswered.",
-        bg: "scene6.jpg", // Same as scene6
-        choices: [
-          { text: "Change Choice", next: 4 } // Loop back to the oath choice
-        ]
-      },
-      {
-        text: "You leave.\n\nIn 1684, you board the ship Vine.\n\nThe coast of Wales disappears.",
-        bg: "scene6.jpg", // Same as scene6
+        text: "Edward mounts his horse alone, resolved to see justice done.",
+        bg: "no_defense.jpg",
         choices: [
           { text: "Proceed", next: 12 }
         ]
       },
       {
-        text: "You are released.\n\nYour body is weak.\nYour spirit remains firm.\n\nYour wife nurses you back to strength.\n\nChildren are born.\nSome are lost.\n\nThe world remains dangerous.",
-        bg: "scene5.jpg", // Soft morning light through window, bed or chair, gentle contrast, muted warmth
+        text: "Word reaches Edward that missionary Elijah H. Davis is to speak, and that some intend to stop him by force.",
+        bg: "night_of_light.jpg",
         choices: [
-          { text: "Proceed", next: 7 } // Back to the invitation
+          { text: "Ride out to protect him", next: 13 },
+          { text: "Stay home", next: 14 }
         ]
       },
       {
-        text: "You arrive.\n\nNo oath is demanded.\nYour house opens again.\n\nYou live openly.\nYou worship freely.\n\nYou are older now.\nBut you are free.\n\nSome choices delay the journey.\nOthers reveal where it was always leading.",
-        bg: "scene7.jpg", // Final scene background, perhaps a peaceful landscape or home in Pennsylvania
+        text: "Edward hopes the meeting will pass without his intervention.",
+        bg: "fear_distance.jpg",
         choices: [
-          { text: "The End", next: null } // End the story
+          { text: "Proceed", next: 15 }
+        ]
+      },
+      {
+        text: "The preacher is interrupted.\nThe crowd grows restless.",
+        bg: "conversion.jpg",
+        choices: [
+          { text: "Rise and defend him", next: 16 },
+          { text: "Hold back", next: 17 }
+        ]
+      },
+      {
+        text: "Edward declares that the stranger shall be heard, resolved to protect him at risk to person and property.",
+        bg: "resistance.jpg",
+        choices: [
+          { text: "Proceed", next: 18 }
+        ]
+      },
+      {
+        text: "Edward stays seated, letting the interruption stand.",
+        bg: "valley_transformed.jpg",
+        choices: [
+          { text: "Proceed", next: 19 }
+        ]
+      },
+      {
+        text: "Returning home alone, Edward questions why he felt compelled to defend a stranger.\nA great light fills the room, and he falls asleep, shaken in spirit.",
+        bg: "partial_path.jpg",
+        choices: [
+          { text: "Accept the witness as divine", next: 20 },
+          { text: "Dismiss the experience", next: 21 }
+        ]
+      },
+      {
+        text: "Edward resolves to follow truth wherever it leads.",
+        bg: "funding_zion.jpg",
+        choices: [
+          { text: "Proceed", next: 22 }
+        ]
+      },
+      {
+        text: "Edward attributes it to fatigue and turns away from thought.",
+        bg: "limited_impact.jpg",
+        choices: [
+          { text: "Proceed", next: 23 }
+        ]
+      },
+      {
+        text: "Edward listens to the missionaries again.\nTheir words settle deeply in his heart.",
+        bg: "fulfillment.jpg",
+        choices: [
+          { text: "Be baptized with Ann", next: 24 },
+          { text: "Remain distant but supportive", next: 25 }
+        ]
+      },
+      {
+        text: "Edward commits fully, with his wife Ann also baptized.",
+        bg: "fulfillment.jpg",
+        choices: [
+          { text: "Proceed", next: 26 }
+        ]
+      },
+      {
+        text: "Edward offers limited support without full commitment.",
+        bg: "fulfillment.jpg",
+        choices: [
+          { text: "Proceed", next: 27 }
+        ]
+      },
+      {
+        text: "The valley softens.\nBaptisms multiply.\nMormon Hollow becomes known.\nJoseph Smith himself visits and stays in Edward’s home.",
+        bg: "fulfillment.jpg",
+        choices: [
+          { text: "Open house and resources fully", next: 28 },
+          { text: "Guard resources", next: 29 }
+        ]
+      },
+      {
+        text: "Edward provides shelter, wealth, and leadership freely.",
+        bg: "fulfillment.jpg",
+        choices: [
+          { text: "Proceed", next: 30 }
+        ]
+      },
+      {
+        text: "Edward helps but limits generosity and influence.",
+        bg: "fulfillment.jpg",
+        choices: [
+          { text: "Proceed", next: 31 }
+        ]
+      },
+      {
+        text: "Edward sells lands, donates thousands in cash and goods, consecrating his substance to the Saints.\nHe aids the building of Nauvoo and the work of Zion.",
+        bg: "fulfillment.jpg",
+        choices: [
+          { text: "Continue fully devoted (Right Path)", next: 32 },
+          { text: "Hold back", next: 33 }
+        ]
+      },
+      {
+        text: "Edward gives some aid but retains most for personal security, limiting the reach of his influence and the preservation of the Saints.",
+        bg: "fulfillment.jpg",
+        choices: [
+          { text: "Proceed", next: 34 }
+        ]
+      },
+      {
+        text: "Having chosen the right path, Edward Hunter lives to see Zion established,\nguides the exodus westward, lays the Temple cornerstone,\nand preserves the work of generations.\nHis name becomes a proverb of uprightness, generosity, and devotion.",
+        bg: "fulfillment.jpg",
+        choices: [
+          { text: "The End", next: null }
+        ]
+      },
+      {
+        text: "Had he chosen otherwise, he would have lived respected and prosperous,\nyet his hand would not have helped build Zion,\nand his influence on the Saints’ preservation would have been lost.",
+        bg: "fulfillment.jpg",
+        choices: [
+          { text: "The End", next: null }
         ]
       }
     ];
