@@ -428,207 +428,237 @@
     // Click to continue dialogue
     dialogueBoxEl.addEventListener('click', showNextLine);
 
-        // CYOA part
-        const story = [
-      {
-        text: "The schoolhouse at West Nantmeal lies in ashes.\nChildren are without instruction.\nThe townsfolk meet to discuss rebuilding.",
-        bg: "images/What If Playthrough/EDH_BurnedSchool.jpg",
-        choices: [
-          { text: "Offer land and means—with a condition", next: 1 },
-          { text: "Allow others to decide", next: 2 }
-        ]
-      },
-      {
-        text: "The West Nantmeal Seminary rises from the ashes.\nThe covenant is written: all persons and persuasions may worship there.\nTime passes, yet the valley forgets the promise.",
-        bg: "images/What If Playthrough/EDH_Nantmeal.jpg",
-        choices: [
-          { text: "Keep the covenant in mind", next: 3 },
-          { text: "Let it fade into memory", next: 4 }
-        ]
-      },
-      {
-        text: "Edward offers land and funding, asking only that all persuasions may worship freely.",
-        bg: "images/What If Playthrough/EDH_Nantmeal.jpg",
-        choices: [
-          { text: "Proceed", next: 5 }
-        ]
-      },
-      {
-        text: "Two missionaries request the Seminary.\nThe people stir in anger and suspicion.",
-        bg: "strangers_arrive.jpg",
-        choices: [
-          { text: "Speak in their defense", next: 6 },
-          { text: "Remain silent", next: 7 }
-        ]
-      },
-      {
-        text: "Edward assumes the matter is settled and gives it little thought.",
-        bg: "distance.jpg",
-        choices: [
-          { text: "Proceed", next: 8 }
-        ]
-      },
-      {
-        text: "Edward recalls his vow, knowing words once given remain binding.",
-        bg: "threat_locust_grove.jpg",
-        choices: [
-          { text: "Proceed", next: 9 }
-        ]
-      },
-      {
-        text: "Edward reminds the people of the agreement and declares the strangers have their right to meet.",
-        bg: "crowd_unchecked.jpg",
-        choices: [
-          { text: "Proceed", next: 10 }
-        ]
-      },
-      {
-        text: "Edward allows neighbors to decide without his voice.",
-        bg: "stand_taken.jpg",
-        choices: [
-          { text: "Proceed", next: 11 }
-        ]
-      },
-      {
-        text: "Edward mounts his horse alone, resolved to see justice done.",
-        bg: "no_defense.jpg",
-        choices: [
-          { text: "Proceed", next: 12 }
-        ]
-      },
-      {
-        text: "Word reaches Edward that missionary Elijah H. Davis is to speak, and that some intend to stop him by force.",
-        bg: "night_of_light.jpg",
-        choices: [
-          { text: "Ride out to protect him", next: 13 },
-          { text: "Stay home", next: 14 }
-        ]
-      },
-      {
-        text: "Edward hopes the meeting will pass without his intervention.",
-        bg: "fear_distance.jpg",
-        choices: [
-          { text: "Proceed", next: 15 }
-        ]
-      },
-      {
-        text: "The preacher is interrupted.\nThe crowd grows restless.",
-        bg: "conversion.jpg",
-        choices: [
-          { text: "Rise and defend him", next: 16 },
-          { text: "Hold back", next: 17 }
-        ]
-      },
-      {
-        text: "Edward declares that the stranger shall be heard, resolved to protect him at risk to person and property.",
-        bg: "resistance.jpg",
-        choices: [
-          { text: "Proceed", next: 18 }
-        ]
-      },
-      {
-        text: "Edward stays seated, letting the interruption stand.",
-        bg: "valley_transformed.jpg",
-        choices: [
-          { text: "Proceed", next: 19 }
-        ]
-      },
-      {
-        text: "Returning home alone, Edward questions why he felt compelled to defend a stranger.\nA great light fills the room, and he falls asleep, shaken in spirit.",
-        bg: "partial_path.jpg",
-        choices: [
-          { text: "Accept the witness as divine", next: 20 },
-          { text: "Dismiss the experience", next: 21 }
-        ]
-      },
-      {
-        text: "Edward resolves to follow truth wherever it leads.",
-        bg: "funding_zion.jpg",
-        choices: [
-          { text: "Proceed", next: 22 }
-        ]
-      },
-      {
-        text: "Edward attributes it to fatigue and turns away from thought.",
-        bg: "limited_impact.jpg",
-        choices: [
-          { text: "Proceed", next: 23 }
-        ]
-      },
-      {
-        text: "Edward listens to the missionaries again.\nTheir words settle deeply in his heart.",
-        bg: "fulfillment.jpg",
-        choices: [
-          { text: "Be baptized with Ann", next: 24 },
-          { text: "Remain distant but supportive", next: 25 }
-        ]
-      },
-      {
-        text: "Edward commits fully, with his wife Ann also baptized.",
-        bg: "fulfillment.jpg",
-        choices: [
-          { text: "Proceed", next: 26 }
-        ]
-      },
-      {
-        text: "Edward offers limited support without full commitment.",
-        bg: "fulfillment.jpg",
-        choices: [
-          { text: "Proceed", next: 27 }
-        ]
-      },
-      {
-        text: "The valley softens.\nBaptisms multiply.\nMormon Hollow becomes known.\nJoseph Smith himself visits and stays in Edward’s home.",
-        bg: "fulfillment.jpg",
-        choices: [
-          { text: "Open house and resources fully", next: 28 },
-          { text: "Guard resources", next: 29 }
-        ]
-      },
-      {
-        text: "Edward provides shelter, wealth, and leadership freely.",
-        bg: "fulfillment.jpg",
-        choices: [
-          { text: "Proceed", next: 30 }
-        ]
-      },
-      {
-        text: "Edward helps but limits generosity and influence.",
-        bg: "fulfillment.jpg",
-        choices: [
-          { text: "Proceed", next: 31 }
-        ]
-      },
-      {
-        text: "Edward sells lands, donates thousands in cash and goods, consecrating his substance to the Saints.\nHe aids the building of Nauvoo and the work of Zion.",
-        bg: "fulfillment.jpg",
-        choices: [
-          { text: "Continue fully devoted (Right Path)", next: 32 },
-          { text: "Hold back", next: 33 }
-        ]
-      },
-      {
-        text: "Edward gives some aid but retains most for personal security, limiting the reach of his influence and the preservation of the Saints.",
-        bg: "fulfillment.jpg",
-        choices: [
-          { text: "Proceed", next: 34 }
-        ]
-      },
-      {
-        text: "Having chosen the right path, Edward Hunter lives to see Zion established,\nguides the exodus westward, lays the Temple cornerstone,\nand preserves the work of generations.\nHis name becomes a proverb of uprightness, generosity, and devotion.",
-        bg: "fulfillment.jpg",
-        choices: [
-          { text: "The End", next: null }
-        ]
-      },
-      {
-        text: "Had he chosen otherwise, he would have lived respected and prosperous,\nyet his hand would not have helped build Zion,\nand his influence on the Saints’ preservation would have been lost.",
-        bg: "fulfillment.jpg",
-        choices: [
-          { text: "The End", next: null }
-        ]
-      }
-    ];
+       // CYOA part — revised to match planned narrative
+
+const story = [
+
+/* 0 — OPENING CHOICE */
+{
+  text: "The schoolhouse at West Nantmeal lies in ashes.\nChildren are without instruction.\nThe townsfolk meet to discuss rebuilding.",
+  bg: "images/What If Playthrough/EDH_BurnedSchool.jpg",
+  choices: [
+    { text: "Offer land and means—with a condition", next: 1 },
+    { text: "Allow others to decide", next: 2 }
+  ]
+},
+
+/* 1 — COVENANT MADE (RIGHT LEAN) */
+{
+  text: "The West Nantmeal Seminary rises from the ashes.\nA covenant is written: all persons and persuasions may worship there.",
+  bg: "images/What If Playthrough/EDH_Nantmeal.jpg",
+  choices: [
+    { text: "Remember the covenant", next: 3 },
+    { text: "Let it fade into memory", next: 4 }
+  ]
+},
+
+/* 2 — WITHHOLDING (DIMINISHED PATH) */
+{
+  text: "Edward withholds his offer. The matter is settled by others, and the moment passes without his hand upon it.",
+  bg: "images/What If Playthrough/EDH_Distance.jpg",
+  choices: [
+    { text: "Proceed", next: 4 }
+  ]
+},
+
+/* 3 — STRANGERS ARRIVE */
+{
+  text: "Two missionaries request use of the Seminary.\nThe people stir in anger and suspicion.",
+  bg: "images/What If Playthrough/EDH_Strangers.jpg",
+  choices: [
+    { text: "Speak in their defense", next: 5 },
+    { text: "Remain silent", next: 6 }
+  ]
+},
+
+/* 4 — COVENANT FORGOTTEN */
+{
+  text: "Edward assumes the matter is settled and gives it little thought as the valley grows restless.",
+  bg: "images/What If Playthrough/EDH_Distance.jpg",
+  choices: [
+    { text: "Proceed", next: 6 }
+  ]
+},
+
+/* 5 — DEFENSE SPOKEN */
+{
+  text: "Edward reminds the people of the agreement and declares the strangers have the right to meet.",
+  bg: "images/What If Playthrough/EDH_Crowd.jpg",
+  choices: [
+    { text: "Proceed", next: 7 }
+  ]
+},
+
+/* 6 — SILENCE */
+{
+  text: "Edward allows his neighbors to decide without his voice. Opposition grows unchecked.",
+  bg: "images/What If Playthrough/EDH_Silence.jpg",
+  choices: [
+    { text: "Proceed", next: 7 }
+  ]
+},
+
+/* 7 — LOCUST GROVE WARNING */
+{
+  text: "Word reaches Edward that missionary Elijah H. Davis is to preach at Locust Grove, and that some intend to stop him by force.",
+  bg: "images/What If Playthrough/EDH_LocustWarning.jpg",
+  choices: [
+    { text: "Ride out to protect him", next: 8 },
+    { text: "Stay home", next: 9 }
+  ]
+},
+
+/* 8 — RIDE OUT */
+{
+  text: "Edward mounts his horse and rides out alone, resolved to see justice done.",
+  bg: "images/What If Playthrough/EDH_RideOut.jpg",
+  choices: [
+    { text: "Proceed", next: 10 }
+  ]
+},
+
+/* 9 — NO DEFENSE */
+{
+  text: "Edward remains at home, hoping the meeting will pass without his intervention.",
+  bg: "images/What If Playthrough/EDH_NoDefense.jpg",
+  choices: [
+    { text: "Proceed", next: 10 }
+  ]
+},
+
+/* 10 — THE INTERRUPTION */
+{
+  text: "The preacher is interrupted.\nThe crowd grows restless.",
+  bg: "images/What If Playthrough/EDH_CrowdTense.jpg",
+  choices: [
+    { text: "Rise and defend him", next: 11 },
+    { text: "Hold back", next: 12 }
+  ]
+},
+
+/* 11 — STAND TAKEN */
+{
+  text: "Edward stands among the crowd and declares the stranger shall have justice, resolving to protect him at the risk of person and property.",
+  bg: "images/What If Playthrough/EDH_StandTaken.jpg",
+  choices: [
+    { text: "Proceed", next: 13 }
+  ]
+},
+
+/* 12 — FEAR */
+{
+  text: "Edward stays seated, allowing the interruption to stand. The moment passes without resistance.",
+  bg: "images/What If Playthrough/EDH_Fear.jpg",
+  choices: [
+    { text: "Proceed", next: 13 }
+  ]
+},
+
+/* 13 — NIGHT OF LIGHT */
+{
+  text: "Returning home alone, Edward questions why he defended a stranger.\nA great light fills the room, and he falls asleep shaken in spirit.",
+  bg: "images/What If Playthrough/EDH_Light.jpg",
+  choices: [
+    { text: "Accept the witness as divine", next: 14 },
+    { text: "Dismiss the experience", next: 15 }
+  ]
+},
+
+/* 14 — ACCEPTANCE */
+{
+  text: "Edward resolves to follow truth wherever it may lead.",
+  bg: "images/What If Playthrough/EDH_Resolve.jpg",
+  choices: [
+    { text: "Proceed", next: 16 }
+  ]
+},
+
+/* 15 — DISMISSAL */
+{
+  text: "Edward attributes the experience to fatigue and turns away from the thought.",
+  bg: "images/What If Playthrough/EDH_Resist.jpg",
+  choices: [
+    { text: "Proceed", next: 16 }
+  ]
+},
+
+/* 16 — GOSPEL HEARD */
+{
+  text: "Edward listens to the missionaries again.\nTheir words settle deeply in his heart.",
+  bg: "images/What If Playthrough/EDH_Gospel.jpg",
+  choices: [
+    { text: "Be baptized with Ann", next: 17 },
+    { text: "Remain distant but supportive", next: 18 }
+  ]
+},
+
+/* 17 — CONVERSION */
+{
+  text: "Edward commits fully, with his wife Ann also baptized.",
+  bg: "images/What If Playthrough/EDH_Baptism.jpg",
+  choices: [
+    { text: "Proceed", next: 19 }
+  ]
+},
+
+/* 18 — PARTIAL COMMITMENT */
+{
+  text: "Edward offers limited support without full commitment.",
+  bg: "images/What If Playthrough/EDH_Partial.jpg",
+  choices: [
+    { text: "Proceed", next: 19 }
+  ]
+},
+
+/* 19 — VALLEY TRANSFORMED */
+{
+  text: "The valley softens.\nBaptisms multiply.\nJoseph Smith visits and stays in Edward’s home.",
+  bg: "images/What If Playthrough/EDH_Valley.jpg",
+  choices: [
+    { text: "Open house and resources fully", next: 20 },
+    { text: "Guard resources", next: 21 }
+  ]
+},
+
+/* 20 — FUNDING ZION */
+{
+  text: "Edward sells lands and donates thousands in cash and goods, consecrating his substance to the Saints.",
+  bg: "images/What If Playthrough/EDH_Zion.jpg",
+  choices: [
+    { text: "Continue fully devoted (Right Path)", next: 22 },
+    { text: "Hold back", next: 23 }
+  ]
+},
+
+/* 21 — LIMITED IMPACT */
+{
+  text: "Edward helps but limits generosity, preserving comfort while the work moves forward without his full hand.",
+  bg: "images/What If Playthrough/EDH_Limited.jpg",
+  choices: [
+    { text: "Proceed", next: 23 }
+  ]
+},
+
+/* 22 — FULFILLMENT (TRUE END) */
+{
+  text: "Edward Hunter lives to see Zion established, aids the Saints westward, and preserves the work of generations.\nHis name becomes a proverb of uprightness and devotion.",
+  bg: "images/What If Playthrough/EDH_Fulfillment.jpg",
+  choices: [
+    { text: "The End", next: null }
+  ]
+},
+
+/* 23 — DIMINISHED END */
+{
+  text: "Edward lives respected and prosperous, yet his hand does not help build Zion, and his influence fades from the work.",
+  bg: "images/What If Playthrough/EDH_Diminished.jpg",
+  choices: [
+    { text: "The End", next: null }
+  ]
+}
+
+];
+
 
     let currentIndex = 0;
     const cyoaDialogueBox = document.getElementById("cyoa-dialogue-box");
