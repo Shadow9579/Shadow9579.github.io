@@ -430,7 +430,7 @@
     const story = [
       {
         text: "You look up from your work.\nA man approaches along the road.\n\nIt is John, your friend who returned from England.\nHe carries news of a growing religious movement.\n\nThat evening, a meeting is held.\n\nYou go.",
-        bg: "images/What If Playthrough/RO_OpeningScene.jpg", 
+        bg: "images/What If Playthrough/RO_OpeningScene.jpg", //No idea what OG North Wales looks like so I took the idea of rolling hills, old cottages, etc, and photoshopped them together. Then I had FI make a mini person from the 1600s in the distance.
         choices: [
           { text: "Sit quietly and observe", next: 1 },
           { text: "Listen openly and return again", next: 2 }
@@ -438,7 +438,7 @@
       },
       {
         text: "You listen with caution.\nThe ideas are unfamiliar.\nDirect access to God.\nNo priest. No oath.\n\nYou leave uncertain—but restless.\n\nThat night, sleep does not come easily.\n\nThe question follows you.",
-        bg: "images/What If Playthrough/RO_The-Meeting.jpg", //fixed this thingy
+        bg: "images/What If Playthrough/RO_The-Meeting.jpg", //fixed this thingy I photoshopped a picture of pews
         choices: [
           { text: "Proceed", next: 3 }
         ]
@@ -452,14 +452,14 @@
       },
       {
         text: "You and your wife speak late into the night.\nWhat does this faith demand?\nWhat might it cost?\n\nOutside, persecution grows.\n\nFriends are fined.\nMeetings are broken.\n\nStill, your house remains open.",
-        bg: "images/What If Playthrough/RO_Home-and-Thoughts.jpg", 
+        bg: "images/What If Playthrough/RO_Home-and-Thoughts.jpg", //I Photoshopped an original picture I took when in Nauvoo visiting historical sites.
         choices: [
           { text: "Proceed", next: 4 }
         ]
       },
       {
         text: "A summons arrives.\n\nKing Charles II requires obedience.\nYou are ordered to swear the\nOath of Allegiance and Supremacy.\n\nThe oath declares the king head of the church.\n\nYou know you cannot swear it.",
-        bg: "images/What If Playthrough/RO_RoyalSummons.jpg", // 
+        bg: "images/What If Playthrough/RO_RoyalSummons.jpg", // Literally just photoshopped a stock photo of yellowed paper with a wax seal
         choices: [
           { text: "Take the oath to preserve safety", next: 5 },
           { text: "Refuse and remain faithful", next: 6 }
@@ -467,21 +467,21 @@
       },
       {
         text: "You speak the words.\n\nYour estate is spared.\nYour freedom remains.\n\nBut meetings stop.\nYour house grows quiet.\n\nThe peace feels thin.\n\nThe danger has not passed.",
-        bg: "images/What If Playthrough/RO_OathSpared.jpg", 
+        bg: "images/What If Playthrough/RO_OathSpared.jpg", //This is literally the Home and Thoughts image but I just added a blue overlay
         choices: [
           { text: "Proceed", next: 7 }
         ]
       },
       {
         text: "You refuse.\n\nYou are taken to prison at Dolgelley—\nwithin sight of your home.\n\nYour wife watches as you are led away.",
-        bg: "images/What If Playthrough/RO_TowerPrison.jpg", 
+        bg: "images/What If Playthrough/RO_TowerPrison.jpg", //There is no historical image for the tower of Dolgelley so I looked for dungeon pictures with barred windows and photoshoped them together.
         choices: [
           { text: "Proceed", next: 8 }
         ]
       },
       {
         text: "Pamphlets arrive from William Penn.\n\nA place called Pennsylvania.\nFreedom of worship.\nNo oaths.\n\nThe ocean lies between fear and hope.",
-        bg: "images/What If Playthrough/RO_VoyageToAmerica.jpg", // 
+        bg: "images/What If Playthrough/RO_VoyageToAmerica.jpg", // I just photoshopped an old map onto a wood table with a candle
         choices: [
           { text: "Remain in Wales", next: 9 },
           { text: "Leave for America", next: 10 }
@@ -489,35 +489,35 @@
       },
       {
         text: "Years pass.\n\nFive years of confinement.\nYour health declines.\n\nYour wife struggles alone.\nRelatives urge her to convince you to yield.\n\nShe refuses.\n\nShe works.\nShe pleads.\nShe endures.",
-        bg: "images/What If Playthrough/RO_TowerPrison.jpg", 
+        bg: "images/What If Playthrough/RO_TowerPrison.jpg", //Same tower picture
         choices: [
           { text: "Proceed", next: 11 }
         ]
       },
       {
         text: "You stay.\n\nPersecution returns.\nThe danger never fully lifts.\n\nThe choice remains unanswered.",
-        bg: "images/What If Playthrough/RO_OathSpared.jpg", 
+        bg: "images/What If Playthrough/RO_OathSpared.jpg", // Overlay house pic from earlier
         choices: [
           { text: "Change Choice", next: 4 } // Loop back to the oath choice
         ]
       },
       {
         text: "You leave.\n\nIn 1684, you board the ship Vine.\n\nThe coast of Wales disappears.",
-        bg: "images/What If Playthrough/RO_VoyageVine.jpg", 
+        bg: "images/What If Playthrough/RO_VoyageVine.jpg", //There is no accurate picture of an immigration ship from the 1680s so I literally looked up a picture of the Pirates of the Caribbean ship and photoshopped it onto a warm horizon.
         choices: [
           { text: "Proceed", next: 12 }
         ]
       },
       {
         text: "You are released.\n\nYour body is weak.\nYour spirit remains firm.\n\nYour wife nurses you back to strength.\n\nChildren are born.\nSome are lost.\n\nThe world remains dangerous.",
-        bg: "images/What If Playthrough/RO_NurseBackToHealth.jpg",
+        bg: "images/What If Playthrough/RO_NurseBackToHealth.jpg", //OG picture from when I visited Nauvoo, just photoshopped out parts and cropped it with a color overlay
         choices: [
           { text: "Proceed", next: 7 } // Back to the invitation
         ]
       },
       {
         text: "You arrive.\n\nNo oath is demanded.\nYour house opens again.\n\nYou live openly.\nYou worship freely.\n\nYou are older now.\nBut you are free.\n\nSome choices delay the journey.\nOthers reveal where it was always leading.",
-        bg: "images/What If Playthrough/RO_Arrived.jpg", 
+        bg: "images/What If Playthrough/RO_Arrived.jpg", //Pirates ship from earlier I just added a dock on the side. 
         choices: [
           { text: "The End", next: null } // End the story
         ]
